@@ -1,0 +1,41 @@
+html {
+ --color-primary: #ff6600;
+}
+
+body {
+  margin: 8px;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 10pt;
+  color: #828282;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a,
+img,
+table,
+tbody,
+tr,
+td {
+  margin: 0;
+  padding: 0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+table {
+  border-collapse: collapse;
+  text-align: start;
+  border-spacing: 0;
+  padding: 0;
+  border: none;
+}
+
+a:link {
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+}

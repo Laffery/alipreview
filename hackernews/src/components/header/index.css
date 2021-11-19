@@ -1,0 +1,42 @@
+.header {
+  width: 100%;
+  margin: 2px 2px -1px 2px;
+  padding: 2px;
+}
+
+.header #td-1 {
+  width: 18px;
+  padding-right: 4px;
+}
+
+.header #td-1 img {
+  border: white solid 1px;
+  width: 18px;
+  height: 18px;
+  aspect-ratio: 18/18;
+}
+
+.header #td-2 {
+  line-height: 12pt;
+}
+
+.pagetop {
+  display: block;
+  font-size: 10pt;
+  color: #222222;
+  line-height: 12px;
+  margin-bottom: 4px;
+}
+
+.header #td-2 .pagetop b {
+  margin-right: 10px;
+}
+
+.header #td-3 {
+  text-align: right;
+  padding-right: 4px;
+}
+
+.header #td-3 span {
+  padding-right: 4px;
+}
