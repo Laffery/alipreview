@@ -11,10 +11,14 @@
 
 1. install
 
-> npx create-react-app hackernews --template=typescript
->
-> npm i rxjs
+> yarn
 
-## Change Log
+2. launch
 
-- 2021.11.19 首页界面原型
+> yarn start
+
+## Change Logs
+
+- v0.1.0 首页界面原型
+- v0.1.1 首页加载数据（rxjs）
+- v0.1.2 打包([@laffery/webpack-starter-kit](https://www.npmjs.com/package/@laffery/webpack-starter-kit))
