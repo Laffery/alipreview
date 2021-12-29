@@ -1,5 +1,5 @@
 import * as api from "app/api";
-import { TableHTMLAttributes, useEffect, useState } from "react";
+import { Suspense, TableHTMLAttributes, useEffect, useState } from "react";
 import * as rx from "rxjs";
 import { switchMap, catchError, map } from "rxjs";
 import { fromFetch } from "rxjs/fetch";
@@ -41,7 +41,7 @@ const StoryItem = ({ rank, id = 21415 }: ItemProps) => {
   }, [id]);
 
   return (
-    <>
+    <Suspense fallback={<></>}>
       <tr className="item-header">
         <td className="title vertical-align-top text-align-right">
           <span>{rank}.</span>
@@ -87,7 +87,7 @@ const StoryItem = ({ rank, id = 21415 }: ItemProps) => {
         </td>
       </tr>
       <tr className="spacer"></tr>
-    </>
+    </Suspense>
   );
 };
 

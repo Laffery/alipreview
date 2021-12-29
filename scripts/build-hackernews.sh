@@ -1,2 +1,3 @@
 #!bin/sh
-echo hello world
+cd hackernews
+yarn build

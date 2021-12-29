@@ -1,0 +1,37 @@
+{
+  "name": "ali-preview",
+  "version": "1.0.0",
+  "description": "ali preview",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo NO_TEST_MODULE_FOUND",
+    "prepare": "husky install",
+    "pretty": "prettier --write"
+  },
+  "lint-staged": {
+    "hackernews/**/*.{js,jsx,ts,tsx,md,html}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "hackernews/**/*.css": [
+      "stylelint --fix"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Laffery/alipreview.git"
+  },
+  "author": "laffery",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Laffery/alipreview/issues"
+  },
+  "homepage": "https://github.com/Laffery/alipreview#readme",
+  "devDependencies": {
+    "eslint": "^8.5.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.4",
+    "prettier": "^2.5.1",
+    "stylelint": "^14.2.0"
+  }
+}
