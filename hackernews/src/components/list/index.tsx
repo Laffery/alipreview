@@ -1,22 +1,12 @@
 import * as api from "app/api";
-import { Suspense, TableHTMLAttributes, useEffect, useState } from "react";
+import { TableHTMLAttributes, useEffect, useState } from "react";
 import * as rx from "rxjs";
-import { switchMap, catchError, map } from "rxjs";
+import { switchMap, catchError, map, tap } from "rxjs";
 import { fromFetch } from "rxjs/fetch";
+import { Item } from "hackernews";
+import { ago } from "utils/date";
+import { plural } from "utils/plural";
 import "./index.css";
-import ago from "utils/date";
-
-interface Item {
-  id: number;
-  by?: string;
-  descendants?: number;
-  kids?: number[];
-  score?: number;
-  text?: string;
-  time?: number;
-  title?: string;
-  type?: string;
-}
 
 type ItemProps = {
   id: number;
@@ -24,24 +14,36 @@ type ItemProps = {
 };
 
 const StoryItem = ({ rank, id = 21415 }: ItemProps) => {
-  const [data, setData] = useState<Item>({ id });
+  const [data, setData] = useState<Item | null>(null);
   useEffect(() => {
     fromFetch(api.item(id))
       .pipe(
-        switchMap((res) => {
-          if (res.ok) return res.json();
-          else return rx.of({ error: true, message: `Error ${res.status}` });
+        switchMap(async (res) => {
+          if (!res.ok)
+            return rx.of({ error: true, message: `Error ${res.status}` });
+
+          return res.json();
         }),
         catchError((err) => {
           console.error(err);
           return rx.of({ error: true, message: err.message });
+        }),
+        map((data: Item) => {
+          const domains = new URL(data.url).hostname.split(".");
+          domains.length > 2 && domains.shift();
+          return { ...data, url: domains.join(".") };
         })
       )
       .subscribe(setData);
-  }, [id]);
+  }, []);
+
+  if (!data) {
+    // skeleton
+    return <></>;
+  }
 
   return (
-    <Suspense fallback={<></>}>
+    <>
       <tr className="item-header">
         <td className="title vertical-align-top text-align-right">
           <span>{rank}.</span>
@@ -61,7 +63,7 @@ const StoryItem = ({ rank, id = 21415 }: ItemProps) => {
           <span className="sitebit comhead">
             {" ("}
             <a href="from?site=github.com/github">
-              <span className="site-str">github.com/github</span>
+              <span className="site-str">{data.url}</span>
             </a>
             {")"}
           </span>
@@ -70,7 +72,9 @@ const StoryItem = ({ rank, id = 21415 }: ItemProps) => {
       <tr className="item-footer">
         <td colSpan={2}></td>
         <td className="subtext">
-          <span className="score">{data.score} points</span>
+          <span className="score">
+            {data.score} point{plural(data.score)}
+          </span>
           <span>
             {" by "}
             <a className="user" href="/">
@@ -83,11 +87,13 @@ const StoryItem = ({ rank, id = 21415 }: ItemProps) => {
           {" | "}
           <a href="/">hide</a>
           {" | "}
-          <a href="/">comments&nbsp;comments</a>
+          <a href="/">
+            {data.descendants}&nbsp;comment{plural(data.descendants)}
+          </a>
         </td>
       </tr>
       <tr className="spacer"></tr>
-    </Suspense>
+    </>
   );
 };
 
