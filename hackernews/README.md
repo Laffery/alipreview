@@ -24,3 +24,4 @@
 - v0.1.2 Webpack 打包([@laffery/webpack-starter-kit](https://www.npmjs.com/package/@laffery/webpack-starter-kit))
 - v0.1.3 ESlint 和 husky pre-commit 配置
 - v0.1.4 修复 news 列表上新闻源地址域名显示问题和时间显示问题
+- v0.1.5 使用 react-router-dom 库实现路由，增加`/newsguidelines`页面

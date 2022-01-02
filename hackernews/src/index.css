@@ -1,5 +1,5 @@
 html {
- --color-primary: #ff6600;
+  --color-primary: #ff6600;
 }
 
 body {
@@ -38,4 +38,25 @@ a:link {
   color: #000000;
   text-decoration: none;
   cursor: pointer;
+}
+
+/* Generally Styles */
+.full-width {
+  width: 100%;
+}
+
+.vertical-align-top {
+  vertical-align: top;
+}
+
+.text-align-start {
+  text-align: start;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.text-align-right {
+  text-align: right;
 }

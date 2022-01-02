@@ -13,7 +13,7 @@
       "eslint --fix",
       "prettier --write"
     ],
-    "hackernews/**/*.css": [
+    "hackernews/*.css": [
       "stylelint --fix"
     ]
   },

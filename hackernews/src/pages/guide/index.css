@@ -1,0 +1,26 @@
+#news-guide {
+  width: 500px;
+  margin: auto;
+}
+
+#news-guide .article {
+  background-color: #fafaf0;
+  color: #000000;
+  font-family: Verdana;
+  font-size: 8.5pt;
+  line-height: 138%;
+}
+
+#news-guide p {
+  margin-bottom: 15px;
+}
+
+#news-guide .separator {
+  background-color: var(--color-primary);
+  padding: 2px;
+}
+
+#news-guide a:link {
+  color: #222222;
+  text-decoration: underline;
+}
