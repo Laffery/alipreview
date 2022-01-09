@@ -1,7 +1,7 @@
 import * as api from "app/api";
 import { TableHTMLAttributes, useEffect, useState } from "react";
 import * as rx from "rxjs";
-import { switchMap, catchError, map, tap } from "rxjs";
+import { switchMap, catchError, map } from "rxjs";
 import { fromFetch } from "rxjs/fetch";
 import { Item } from "hackernews";
 import { ago } from "utils/date";
@@ -13,8 +13,8 @@ type ItemProps = {
   rank: number;
 };
 
-const StoryItem = ({ rank, id = 21415 }: ItemProps) => {
-  const [data, setData] = useState<Item | null>(null);
+const StoryItem = ({ rank, id }: ItemProps) => {
+  const [data, setData] = useState<(Item & { site: string }) | null>(null);
   useEffect(() => {
     fromFetch(api.item(id))
       .pipe(
@@ -31,7 +31,7 @@ const StoryItem = ({ rank, id = 21415 }: ItemProps) => {
         map((data: Item) => {
           const domains = new URL(data.url).hostname.split(".");
           domains.length > 2 && domains.shift();
-          return { ...data, url: domains.join(".") };
+          return { ...data, site: domains.join(".") };
         })
       )
       .subscribe(setData);
@@ -54,16 +54,13 @@ const StoryItem = ({ rank, id = 21415 }: ItemProps) => {
           </a>
         </td>
         <td className="title">
-          <a
-            href="https://github.com/github/dmca/blob/master/2021/11/2021-11-12-hackerrank.md"
-            className="title-link"
-          >
+          <a href={data.url} className="title-link">
             {data.title}
           </a>
           <span className="sitebit comhead">
             {" ("}
             <a href="from?site=github.com/github">
-              <span className="site-str">{data.url}</span>
+              <span className="site-str">{data.site}</span>
             </a>
             {")"}
           </span>

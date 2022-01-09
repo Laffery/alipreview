@@ -12,7 +12,7 @@ export default function Footer() {
         </tbody>
       </table>
       <br />
-      <span>
+      <span className="yclinks">
         <a href="/newsguidelines">Guidelines</a>
         {" | "}
         <a href="/newsfaq">FAQ</a>

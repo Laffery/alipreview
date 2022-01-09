@@ -1,9 +1,9 @@
-#news-guide {
+#html-page {
   width: 500px;
   margin: auto;
 }
 
-#news-guide .article {
+#html-page .article {
   background-color: #fafaf0;
   color: #000000;
   font-family: Verdana;
@@ -11,16 +11,16 @@
   line-height: 138%;
 }
 
-#news-guide p {
+#html-page p {
   margin-bottom: 15px;
 }
 
-#news-guide .separator {
+#html-page .separator {
   background-color: var(--color-primary);
   padding: 2px;
 }
 
-#news-guide a:link {
+#html-page a:link {
   color: #222222;
   text-decoration: underline;
 }

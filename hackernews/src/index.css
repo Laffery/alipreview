@@ -40,6 +40,10 @@ a:link {
   cursor: pointer;
 }
 
+a:visited {
+  color: #828282;
+}
+
 /* Generally Styles */
 .full-width {
   width: 100%;
