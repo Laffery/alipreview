@@ -3,6 +3,7 @@ import HTMLPage from "components/html-page";
 function Guide() {
   return (
     <HTMLPage
+      footSeparator
       article={
         <>
           <br />
@@ -33,16 +34,16 @@ function Guide() {
       important.`}
           </p>
           <p>
-            {`Please submit the original source. If a post reports on something
-      found on another site, submit the latter.`}
+            Please submit the original source. If a post reports on something
+            found on another site, submit the latter.
           </p>
           <p>
-            {`If the title includes the name of the site, please take it out,
-      because the site name will be displayed after the link.`}
+            If the title includes the name of the site, please take it out,
+            because the site name will be displayed after the link.
           </p>
           <p>
-            {`If you submit a video or pdf, please warn us by appending [video]
-      or [pdf] to the title.`}
+            If you submit a video or pdf, please warn us by appending [video] or
+            [pdf] to the title.
           </p>
           <p>
             {`If the title contains a gratuitous number or number + adjective,
@@ -81,8 +82,8 @@ function Guide() {
       including at the rest of the community.`}
           </p>
           <p>
-            {`Comments should get more thoughtful and substantive, not less, as
-      a topic gets more divisive.`}
+            Comments should get more thoughtful and substantive, not less, as a
+            topic gets more divisive.
           </p>
           <p>
             {`When disagreeing, please reply to the argument instead of calling
@@ -95,8 +96,8 @@ function Guide() {
       good faith.`}
           </p>
           <p>
-            {`Eschew flamebait. Avoid unrelated controversies and generic
-      tangents.`}
+            Eschew flamebait. Avoid unrelated controversies and generic
+            tangents.
           </p>
           <p>
             {`Please don't post shallow dismissals, especially of other people's

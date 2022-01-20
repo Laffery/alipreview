@@ -1,7 +1,13 @@
 import { ReactNode } from "react";
 import "./index.css";
 
-function HTMLPage({ article }: { article: ReactNode }) {
+function HTMLPage({
+  article,
+  footSeparator = false,
+}: {
+  article: ReactNode;
+  footSeparator?: boolean;
+}) {
   return (
     <table id="html-page">
       <br />
@@ -19,19 +25,23 @@ function HTMLPage({ article }: { article: ReactNode }) {
 
             {article}
 
-            <table style={{ backgroundColor: "#ff6600", width: "100%" }}>
-              <tbody>
-                <tr>
-                  <td className="separator"></td>
-                </tr>
-              </tbody>
-            </table>
-            <p>
-              <span>
-                <br />
-                <br />
-              </span>
-            </p>
+            {footSeparator && (
+              <>
+                <table style={{ backgroundColor: "#ff6600", width: "100%" }}>
+                  <tbody>
+                    <tr>
+                      <td className="separator"></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p>
+                  <span>
+                    <br />
+                    <br />
+                  </span>
+                </p>
+              </>
+            )}
           </td>
         </tr>
       </tbody>

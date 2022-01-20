@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "pages/home";
 import Guide from "pages/guide";
 import FAQ from "pages/faq";
+import Security from "pages/security";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,6 +14,7 @@ ReactDOM.render(
         <Route path="/" element={<Home />} />
         <Route path="/newsguidelines" element={<Guide />} />
         <Route path="/newsfaq" element={<FAQ />} />
+        <Route path="/security" element={<Security />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
