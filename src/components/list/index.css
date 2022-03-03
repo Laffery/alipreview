@@ -6,6 +6,10 @@
   word-break: break-word;
 }
 
+.item-header .title a:visited {
+  color: #828282;
+}
+
 .item-header .vote-arrow {
   width: 10px;
   height: 10px;

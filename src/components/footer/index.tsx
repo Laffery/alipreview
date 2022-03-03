@@ -28,9 +28,9 @@ export default function Footer() {
         {" | "}
         <a href="/security">Security</a>
         {" | "}
-        <a href="/legal">Legal</a>
+        <a href="https://www.ycombinator.com/legal">Legal</a>
         {" | "}
-        <a href="/apply">Apply to YC</a>
+        <a href="https://www.ycombinator.com/apply">Apply to YC</a>
         {" | "}
         <a href="mailto:2387065420@qq.com">Contact</a>
       </span>
@@ -46,7 +46,7 @@ export default function Footer() {
           spellCheck="false"
           autoCapitalize="false"
           autoComplete="false"
-        ></input>
+        />
       </form>
     </div>
   );

@@ -29,7 +29,6 @@ code {
 table {
   border-collapse: collapse;
   text-align: start;
-  border-spacing: 0;
   padding: 0;
   border: none;
 }
@@ -38,10 +37,6 @@ a:link {
   color: #000000;
   text-decoration: none;
   cursor: pointer;
-}
-
-a:visited {
-  color: #828282;
 }
 
 /* Generally Styles */

@@ -34,5 +34,5 @@
       "flowVersion": "0.53"
     }
   },
-  "ignorePatterns": ["dist", "config", "*.md"]
+  "ignorePatterns": ["dist", "config", "public", "*.md"]
 }

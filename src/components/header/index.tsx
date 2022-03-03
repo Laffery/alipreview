@@ -3,7 +3,6 @@ import "./index.css";
 export default function Header() {
   return (
     <div>
-      <div className="black"></div>
       <table className="header">
         <tbody>
           <tr>
