@@ -1,46 +1,30 @@
 import * as api from "app/api";
 import { TableHTMLAttributes, useEffect, useState } from "react";
 import * as rx from "rxjs";
-import { switchMap, catchError, map } from "rxjs";
 import { fromFetch } from "rxjs/fetch";
 import { Item } from "hackernews";
-import { ago } from "utils/date";
-import { plural } from "utils/plural";
+import { ago, plural, host } from "utils";
 import "./index.css";
 
-type ItemProps = {
-  id: number;
+interface ItemProps {
+  // id: number;
+  data: Item;
   rank: number;
-};
+}
 
-const StoryItem = ({ rank, id }: ItemProps) => {
-  const [data, setData] = useState<(Item & { site: string }) | null>(null);
-  useEffect(() => {
-    fromFetch(api.item(id))
-      .pipe(
-        switchMap(async (res) => {
-          if (!res.ok)
-            return rx.of({ error: true, message: `Error ${res.status}` });
-
-          return res.json();
-        }),
-        catchError((err) => {
-          console.error(err);
-          return rx.of({ error: true, message: err.message });
-        }),
-        map((data: Item) => {
-          const domains = new URL(data.url).hostname.split(".");
-          domains.length > 2 && domains.shift();
-          return { ...data, site: domains.join(".") };
-        })
-      )
-      .subscribe(setData);
-  }, []);
-
-  if (!data) {
-    // skeleton
-    return <></>;
-  }
+const StoryItem = ({ rank, data }: ItemProps) => {
+  const SiteTag = () => {
+    if (!data.url) return null;
+    return (
+      <>
+        {" ("}
+        <a href={`from?site=${data.url}`}>
+          <span className="site-str">{host(data.url)}</span>
+        </a>
+        {")"}
+      </>
+    );
+  };
 
   return (
     <>
@@ -54,15 +38,11 @@ const StoryItem = ({ rank, id }: ItemProps) => {
           </a>
         </td>
         <td className="title">
-          <a href={data.url} className="title-link">
+          <a href={data.url ?? `/item?id=${data.id}`} className="title-link">
             {data.title}
           </a>
           <span className="sitebit comhead">
-            {" ("}
-            <a href="from?site=github.com/github">
-              <span className="site-str">{data.site}</span>
-            </a>
-            {")"}
+            <SiteTag />
           </span>
         </td>
       </tr>
@@ -95,28 +75,30 @@ const StoryItem = ({ rank, id }: ItemProps) => {
 };
 
 export default function List(props: TableHTMLAttributes<HTMLTableElement>) {
-  const [items, setItems] = useState<number[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
   useEffect(() => {
-    fromFetch(api.top())
-      .pipe(
-        switchMap((res) => {
-          if (res.ok) return res.json();
-          else return rx.of({ error: true, message: `Error ${res.status}` });
-        }),
-        catchError((err) => {
-          console.error(err);
-          return rx.of({ error: true, message: err.message });
-        }),
-        map((value: number[]) => value.slice(0, 30))
-      )
-      .subscribe(setItems);
+    fromFetch(api.getTopStoriesIds(), {
+      async selector(res) {
+        const data: number[] = await res.json();
+        return data.slice(0, 30);
+      },
+    }).subscribe((items) => {
+      console.log(items);
+      rx.forkJoin(
+        items.map((id) =>
+          fromFetch(api.getStoryById(id), {
+            selector: (res) => res.json() as Promise<Item>,
+          })
+        )
+      ).subscribe(setItems);
+    });
   }, []);
 
   return (
     <table {...props}>
       <tbody>
         {items.map((item, index) => (
-          <StoryItem key={index} id={item} rank={index + 1} />
+          <StoryItem key={index} data={item} rank={index + 1} />
         ))}
         <tr className="more-space"></tr>
         <tr>
