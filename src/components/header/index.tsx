@@ -38,7 +38,11 @@ export default function Header() {
     isAddon,
   ] = useMemo(() => {
     const path = primaryPath(location.pathname);
-    return [path, findIndex(nav, { href: path })];
+    if (!path) return [path, false];
+    return [
+      path,
+      findIndex(nav.concat({ href: "news", text: "" }), { href: path }) === -1,
+    ];
   }, [location.pathname]);
 
   const HeaderNavItem = (props: NavItem) => {
