@@ -8,6 +8,10 @@
   color: #000;
 }
 
+.header .nav-item #curr {
+  color: white;
+}
+
 .header #td-1 {
   width: 18px;
   padding-right: 4px;
@@ -34,6 +38,10 @@
 
 .header #td-2 .pagetop b {
   margin-right: 10px;
+}
+
+.header #td-2 #addon span {
+  color: white;
 }
 
 .header #td-3 {

@@ -1,6 +1,58 @@
+import { findIndex } from "lodash";
+import { useMemo } from "react";
+import { useLocation } from "react-router-dom";
 import "./index.css";
 
+interface NavItem {
+  href: string;
+  text: string;
+  lastItem?: boolean;
+  currItem?: boolean;
+}
+
+const nav: NavItem[] = [
+  { href: "newest", text: "new" },
+  { href: "front", text: "past" },
+  { href: "newcomments", text: "comments" },
+  { href: "ask", text: "ask" },
+  { href: "show", text: "show" },
+  { href: "jobs", text: "jobs" },
+  { href: "submit", text: "submit", lastItem: true },
+];
+
+/**
+ * 解析location中的一级路径
+ * @param location 从useLocation获取的location pathname
+ */
+const primaryPath = (location: string): string => {
+  const paths = /^\/([\w\d]*)(\/[\w\d]*)*$/.exec(location);
+  return paths ? paths[1] : "";
+};
+
 export default function Header() {
+  const location = useLocation();
+  const [
+    /** 当前路径 */
+    path,
+    /** 是否是额外nav */
+    isAddon,
+  ] = useMemo(() => {
+    const path = primaryPath(location.pathname);
+    return [path, findIndex(nav, { href: path })];
+  }, [location.pathname]);
+
+  const HeaderNavItem = (props: NavItem) => {
+    const { href, text, lastItem = false, currItem = false } = props;
+    return (
+      <span className="nav-item">
+        <a href={href} id={currItem ? "curr" : ""}>
+          {text}
+        </a>
+        {!lastItem && " | "}
+      </span>
+    );
+  };
+
   return (
     <div>
       <table className="header">
@@ -17,19 +69,19 @@ export default function Header() {
                 <b>
                   <a href="news">Hacker News</a>
                 </b>
-                <a href="newest">new</a>
-                {" | "}
-                <a href="front">past</a>
-                {" | "}
-                <a href="newcomments">comments</a>
-                {" | "}
-                <a href="ask">ask</a>
-                {" | "}
-                <a href="show">show</a>
-                {" | "}
-                <a href="jobs">jobs</a>
-                {" | "}
-                <a href="submit">submit</a>
+                {nav.map((item, index) => (
+                  <HeaderNavItem
+                    key={index}
+                    {...item}
+                    currItem={path === item.href}
+                  />
+                ))}
+                {isAddon && (
+                  <span id="addon">
+                    {" | "}
+                    <span>{path}</span>
+                  </span>
+                )}
               </span>
             </td>
             <td id="td-3">

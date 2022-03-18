@@ -10,3 +10,4 @@
 - `0.1.7` 增加 /security 页面，将 html-page 底部红色分割线抽出，通过参数决定是否有
 - `0.1.8` 增加 /lists 页面，首页底部footer全部完成，重构仓库结构
 - `0.1.9` 使用`forkJoin`将列表中请求集中发出，从而实现列表同时渲染的效果
+- `0.1.10` 在 /lists 页面header上显示 lists 白色item，组件化 header-nav-item
