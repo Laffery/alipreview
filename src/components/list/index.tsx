@@ -1,14 +1,11 @@
-import * as api from "app/api";
 import { TableHTMLAttributes, useEffect, useState } from "react";
-import * as rx from "rxjs";
-import { fromFetch } from "rxjs/fetch";
-import { Item } from "hackernews";
+import { Story } from "hackernews";
 import { ago, plural, host } from "utils";
 import "./index.css";
+import { getTopStories } from "apis";
 
 interface ItemProps {
-  // id: number;
-  data: Item;
+  data: Story;
   rank: number;
 }
 
@@ -75,22 +72,9 @@ const StoryItem = ({ rank, data }: ItemProps) => {
 };
 
 export default function List(props: TableHTMLAttributes<HTMLTableElement>) {
-  const [items, setItems] = useState<Item[]>([]);
+  const [items, setItems] = useState<Story[]>([]);
   useEffect(() => {
-    fromFetch(api.getTopStoriesIdsUrl, {
-      async selector(res) {
-        const data: number[] = await res.json();
-        return data.slice(0, 30);
-      },
-    }).subscribe((items) => {
-      rx.forkJoin(
-        items.map((id) =>
-          fromFetch(api.getStoryByIdUrl(id), {
-            selector: (res) => res.json() as Promise<Item>,
-          })
-        )
-      ).subscribe(setItems);
-    });
+    getTopStories().subscribe(setItems);
   }, []);
 
   return (

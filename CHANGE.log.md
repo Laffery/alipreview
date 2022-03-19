@@ -13,3 +13,4 @@
 - `0.1.10` 在 /lists 页面header上显示 lists 白色item，组件化 header-nav-item
 - `0.1.11` 修复pathname为news时 header 的异常ˇ
 - `0.1.12` 完善登录注册逻辑
+- `0.1.13` 将所有Observable请求集中到 /apis

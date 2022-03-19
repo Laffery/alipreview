@@ -1,5 +1,5 @@
 declare module "hackernews" {
-  export interface Item {
+  export interface Story {
     id: number;
     by: string;
     type: string;
