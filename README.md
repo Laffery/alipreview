@@ -25,3 +25,11 @@ The tech stack can be listed as following:
 2. launch
 
 > yarn start
+
+## Attention Please
+
+### Authorization
+
+事实上，根据[Does the Hacker News API have auth documentation?](https://news.ycombinator.com/item?id=24127575)的说法，以及实际开发中的情况，目前是不太好实现用实际请求的方法进行注册和登录，所以本项目目前采用`catchError`操作符**模拟实现**，同时略去了`reRAPTCHA`人机身份验证部分。
+
+为了保证接近真实的使用体验，提供一个真实存在的账号（参见配置中的mock account），以及在模拟登录/注册时，颁发一个虚拟的cookie，官方格式为`user=<username>&<32位token>`

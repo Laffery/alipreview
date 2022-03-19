@@ -77,16 +77,15 @@ const StoryItem = ({ rank, data }: ItemProps) => {
 export default function List(props: TableHTMLAttributes<HTMLTableElement>) {
   const [items, setItems] = useState<Item[]>([]);
   useEffect(() => {
-    fromFetch(api.getTopStoriesIds(), {
+    fromFetch(api.getTopStoriesIdsUrl, {
       async selector(res) {
         const data: number[] = await res.json();
         return data.slice(0, 30);
       },
     }).subscribe((items) => {
-      console.log(items);
       rx.forkJoin(
         items.map((id) =>
-          fromFetch(api.getStoryById(id), {
+          fromFetch(api.getStoryByIdUrl(id), {
             selector: (res) => res.json() as Promise<Item>,
           })
         )

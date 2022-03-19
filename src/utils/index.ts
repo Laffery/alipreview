@@ -39,3 +39,18 @@ export const host = (url: string) => {
   if (host === "github.com") return `${host}/${pathname.split("/")[1]}`;
   return host;
 };
+
+/**
+ * 获取相对根路径的路由
+ */
+export const relRootPath = (path: string) => {
+  if (path.startsWith("/")) return path;
+  return `/${path}`;
+};
+
+export enum Status {
+  Success = "Success",
+  Failed = "Failed",
+  Pending = "Pending",
+  Error = "Error",
+}

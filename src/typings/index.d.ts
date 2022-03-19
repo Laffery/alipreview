@@ -14,4 +14,9 @@ declare module "hackernews" {
     kids?: number[];
     time?: number;
   }
+
+  export interface Account {
+    username: string;
+    password: string;
+  }
 }
