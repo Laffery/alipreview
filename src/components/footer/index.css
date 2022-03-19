@@ -1,0 +1,32 @@
+.footer > img {
+  height: 10px;
+  width: 0px;
+}
+
+.footer a:visited {
+  color: #828282;
+}
+
+.footer span {
+  font-size: 8pt;
+}
+
+.footer form {
+  margin-block-end: 1em;
+}
+
+.footer input {
+  font-family: monospace;
+  font-size: 10pt;
+  padding: 1px 2px;
+}
+
+.footer .separator {
+  background-color: var(--color-primary);
+  padding: 1px;
+}
+
+.footer .yclinks {
+  font-size: 8pt;
+  font-family: Verdana, Geneva, sans-serif;
+}

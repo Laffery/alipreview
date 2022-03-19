@@ -1,0 +1,26 @@
+#html-page {
+  width: 500px;
+  margin: auto;
+}
+
+#html-page .article {
+  background-color: #fafaf0;
+  color: #000000;
+  font-family: Verdana;
+  font-size: 8.5pt;
+  line-height: 138%;
+}
+
+#html-page p {
+  margin-bottom: 15px;
+}
+
+#html-page .separator {
+  background-color: var(--color-primary);
+  padding: 2px;
+}
+
+#html-page a:link {
+  color: #222222;
+  text-decoration: underline;
+}

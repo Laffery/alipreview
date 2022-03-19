@@ -1,0 +1,51 @@
+.item-header .title {
+  overflow: hidden;
+}
+
+.item-header .title a {
+  word-break: break-word;
+}
+
+.item-header .title a:visited {
+  color: #828282;
+}
+
+.item-header .vote-arrow {
+  width: 10px;
+  height: 10px;
+  border: 0px;
+  margin: 3px 2px 6px;
+  background: url("https://news.ycombinator.com/grayarrow.gif") no-repeat;
+}
+
+.item-header .comhead {
+  font-size: 8pt;
+}
+
+.item-header .comhead a:link {
+  color: #828282;
+}
+
+.item-footer {
+  font-size: 8pt;
+}
+
+.item-header .comhead a:hover {
+  text-decoration: underline;
+}
+
+.item-footer .subtext a {
+  color: #828282;
+}
+
+.item-footer .subtext a:hover {
+  text-decoration: underline;
+}
+
+.spacer {
+  height: 5px;
+}
+
+.more-space {
+  height: 10px;
+}
