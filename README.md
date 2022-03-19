@@ -18,13 +18,18 @@ The tech stack can be listed as following:
 
 ## Getting Started
 
-1. install
+### Install
 
 > yarn
 
-2. launch
+### Launch
 
 > yarn start
+
+### API
+
+- [online](https://hackernews.api-docs.io/v0/overview/introduction)
+- [local](./docs/API.md)
 
 ## Attention Please
 
