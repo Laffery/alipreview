@@ -1,3 +1,28 @@
+declare module "app" {
+  interface BuildManifest {
+    scripts: Record<string, string>;
+    styles: Record<string, string>;
+  }
+
+  interface BuildManifest {
+    scripts: Record<string, string>;
+    styles: Record<string, string>;
+  }
+
+  type GetServerSideProps<T extends Record<string, unknown> = Record<string, unknown>> =
+    () => Promise<{ props: T }>;
+
+  interface SSRComponent {
+    default: (props: { [key: string]: unknown }) => JSX.Element;
+    getServerSideProps?: GetServerSideProps;
+  }
+}
+
+declare interface Window {
+  SSR?: boolean;
+  SSR_DATA?: { props: { [key: string]: unknown } };
+}
+
 declare module "hackernews" {
   export interface Story {
     id: number;
