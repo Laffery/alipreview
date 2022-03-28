@@ -14,3 +14,4 @@
 - `0.1.11` 修复pathname为news时 header 的异常ˇ
 - `0.1.12` 完善登录注册逻辑
 - `0.1.13` 将所有Observable请求集中到 /apis
+- `0.2.0` SSR支持，基于@laffery/webpack-starter-kit

@@ -18,13 +18,17 @@ The tech stack can be listed as following:
 
 ## Getting Started
 
-### Install
+```bash
+# install dependencies
+yarn
 
-> yarn
+# build this project by webpack, output in /dist
+yarn build
 
-### Launch
+yarn start
+```
 
-> yarn start
+If you wanna developing by yourself, run `yarn dev` to launch a HMR server and enjoy coding.
 
 ### API
 
@@ -32,6 +36,12 @@ The tech stack can be listed as following:
 - [local](./docs/API.md)
 
 ## Attention Please
+
+### Server Side Render
+
+基于本人的另一个项目[webpack-starter-kit](https://github.com/Laffery/webpack-starter-kit)，完全基于Webpack5和React实现对SSR的支持。
+
+但是目前而言SSR对RxJS支持不是很好，因为RxJS不能在服务端执行。
 
 ### Authorization
 
