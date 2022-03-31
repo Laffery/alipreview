@@ -1,5 +1,5 @@
-import React, { createContext, useContext } from "react";
-import ReactDOM from "react-dom";
+import React, { createContext, lazy, useContext } from "react";
+import ReactDOM from "react-dom/client";
 import "./index.css";
 
 const Context = createContext({ props: {} });
@@ -10,8 +10,7 @@ const getInitialContextValue = () => {
 
 function Page() {
   const { props } = useContext(Context);
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const Page = require(`./pages${window.location.pathname}`).default;
+  const Page = lazy(() => import(`./pages${window.location.pathname}`));
   return <Page {...props} />;
 }
 
@@ -27,11 +26,13 @@ function App() {
 }
 
 function render() {
-  const container = document.getElementById("root");
+  const container = document.getElementById("root") as HTMLDivElement;
 
   if (window && window.SSR) {
-    ReactDOM.hydrate(<App />, container);
-  } else ReactDOM.render(<App />, container);
+    ReactDOM.hydrateRoot(container, <App />);
+  } else {
+    ReactDOM.createRoot(container).render(<App />);
+  }
 }
 
 render();

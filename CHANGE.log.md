@@ -15,3 +15,4 @@
 - `0.1.12` 完善登录注册逻辑
 - `0.1.13` 将所有Observable请求集中到 /apis
 - `0.2.0` SSR支持，基于@laffery/webpack-starter-kit
+- `0.2.1` 迁移到React18
