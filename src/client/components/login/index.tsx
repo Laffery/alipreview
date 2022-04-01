@@ -1,8 +1,7 @@
 import { useMemo, useState } from "react";
-import { login, register } from "../../apis/index";
+import { login, register } from "@/apis/index";
 import type { Account } from "hackernews";
-import { relRootPath, Status } from "../../utils/index";
-import { useLocation, useNavigate } from "react-router-dom";
+import { relRootPath, Status } from "@/utils/index";
 import query from "query-string";
 import AccountForm from "./form";
 import "./index.css";
@@ -12,8 +11,7 @@ import "./index.css";
  * @param goto 登录成功重定向地址
  */
 function Login(props: { message?: string; goto?: string }) {
-  const navigate = useNavigate();
-  const { search } = useLocation();
+  const { search } = window.location;
   const goto = useMemo(() => {
     if (props.goto) return props.goto;
     return (query.parse(search) as Record<string, string>)["goto"] ?? "/";
@@ -25,7 +23,7 @@ function Login(props: { message?: string; goto?: string }) {
       return setMessage(msg);
     }
 
-    navigate(relRootPath(goto), { replace: true });
+    window.location.replace(relRootPath(goto));
   }
 
   function handleLogin(form: Account) {

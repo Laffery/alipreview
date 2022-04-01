@@ -16,3 +16,4 @@
 - `0.1.13` 将所有Observable请求集中到 /apis
 - `0.2.0` SSR支持，基于@laffery/webpack-starter-kit
 - `0.2.1` 迁移到React18
+- `0.2.2` 修复基于文件的约定式路由问题，移除react-router-dom依赖

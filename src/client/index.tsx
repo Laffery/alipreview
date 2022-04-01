@@ -1,4 +1,4 @@
-import React, { createContext, lazy, useContext } from "react";
+import React, { createContext, useContext } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
@@ -10,7 +10,7 @@ const getInitialContextValue = () => {
 
 function Page() {
   const { props } = useContext(Context);
-  const Page = lazy(() => import(`./pages${window.location.pathname}`));
+  const Page = require(`./pages${window.location.pathname}`).default;
   return <Page {...props} />;
 }
 
