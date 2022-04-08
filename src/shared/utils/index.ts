@@ -1,3 +1,5 @@
+import { Account } from "hackernews";
+
 /**
  * @param num 给定数字
  * @param suffix 默认复数添加后缀`s`
@@ -54,3 +56,11 @@ export enum Status {
   Pending = "Pending",
   Error = "Error",
 }
+
+export const cvtAccount2FormData = (account: Account): string => {
+  const formData = [
+    encodeURIComponent("acct") + "=" + encodeURIComponent(account.username),
+    encodeURIComponent("pw") + "=" + encodeURIComponent(account.password),
+  ];
+  return formData.join("&");
+};

@@ -1,5 +1,5 @@
 import { Story } from "hackernews";
-import { ago, plural, host } from "@/utils/index";
+import { ago, plural, host } from "shared/utils/index";
 import "./index.css";
 
 interface ItemProps {

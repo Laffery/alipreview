@@ -1,9 +1,9 @@
-import { forkJoin, Observable, of } from "rxjs";
+import { firstValueFrom, forkJoin, Observable, of } from "rxjs";
 import { catchError, switchMap } from "rxjs/operators";
 import { Account, Story } from "hackernews";
-import { baseUrl, account as mockAccount } from "config";
+import { baseUrl, account as mockAccount, apiUrl } from "config";
 import { fromFetch } from "rxjs/fetch";
-import { Status } from "../utils";
+import { Status } from "shared/utils";
 
 /**
  * 根据id获取news信息
@@ -19,8 +19,8 @@ export function getStoryById(id: number): Observable<Story> {
 /**
  * 获取排行榜靠前的news id
  */
-export function getTopStories(): Observable<Story[]> {
-  return fromFetch(`${baseUrl}/v0/topstories.json`, {
+export function getTopStories(): Promise<Story[]> {
+  const source$ = fromFetch(`${baseUrl}/v0/topstories.json`, {
     selector: (res) => res.json() as Promise<number[]>,
   }).pipe(
     switchMap((data) => {
@@ -28,29 +28,22 @@ export function getTopStories(): Observable<Story[]> {
       return forkJoin(stories.map((id) => getStoryById(id)));
     })
   );
+  return firstValueFrom(source$);
 }
-
-const cvtAccount2FormData = (account: Account): string => {
-  const formData = [
-    encodeURIComponent("acct") + "=" + encodeURIComponent(account.username),
-    encodeURIComponent("pw") + "=" + encodeURIComponent(account.password),
-  ];
-  return formData.join("&");
-};
 
 /**
  * 登录
  */
 export function login(account: Account): Observable<string> {
-  return fromFetch(`${baseUrl}/submit.json`, {
+  return fromFetch(`${apiUrl}/login`, {
     method: "POST",
     headers: {
-      "content-type": "application/x-www-form-urlencoded",
+      "content-type": "application/json",
     },
-    body: cvtAccount2FormData(account),
+    body: JSON.stringify(account),
   }).pipe(
     switchMap(async (res) => {
-      throw res;
+      return await res.text();
     }),
     catchError((err) => {
       console.debug(err);
@@ -69,12 +62,12 @@ export function login(account: Account): Observable<string> {
  * 新建账户接口
  */
 export function register(account: Account): Observable<string> {
-  return fromFetch(`${baseUrl}/submit`, {
+  return fromFetch(`${apiUrl}/register`, {
     method: "POST",
     headers: {
-      "content-type": "application/x-www-form-urlencoded",
+      "content-type": "application/json",
     },
-    body: cvtAccount2FormData(account),
+    body: JSON.stringify(account),
   }).pipe(
     switchMap(async (res) => {
       throw res;

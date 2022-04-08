@@ -4,7 +4,7 @@ import Footer from "@/components/footer";
 import { GetServerSideProps } from "app";
 import { Story } from "hackernews";
 import StoryItem from "@/components/list-item";
-import { getTopStories } from "@/apis/server";
+import { getTopStories } from "@/apis/index";
 
 function App({ data: items }: { data: Story[] }) {
   return (

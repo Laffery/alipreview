@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { login, register } from "@/apis/index";
 import type { Account } from "hackernews";
-import { relRootPath, Status } from "@/utils/index";
+import { relRootPath, Status } from "shared/utils/index";
 import query from "query-string";
 import AccountForm from "./form";
 import "./index.css";

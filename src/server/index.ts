@@ -4,8 +4,13 @@ import path from "path";
 import urlParse from "url-parse";
 import Document from "./document";
 import { BuildManifest, SSRComponent } from "app";
+import services from "./services";
+import fetch from "node-fetch";
 
-const app = express();
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+globalThis.fetch = fetch;
+const port = process.env.PORT ?? 3000;
 
 /** __dirname is dist/server */
 const PUBLIC_URL = path.resolve(__dirname, "../static");
@@ -14,7 +19,10 @@ const manifest: BuildManifest = fs.readJSONSync(
   path.join(PUBLIC_URL, "build.manifest.json")
 );
 
-const port = process.env.PORT ?? 3000;
+const app = express();
+
+// enable application/json
+app.use(express.json());
 
 app.use("/_static", async (req, res, next) => {
   express.static(PUBLIC_URL, {})(req, res, () => {
@@ -24,9 +32,7 @@ app.use("/_static", async (req, res, next) => {
   });
 });
 
-app.use("/api", async (req, res) => {
-  return res.end("Hello Api Caller");
-});
+app.use("/api", services);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

@@ -41,8 +41,6 @@ If you wanna developing by yourself, run `yarn dev` to launch a HMR server and e
 
 基于本人的另一个项目[webpack-starter-kit](https://github.com/Laffery/webpack-starter-kit)，完全基于Webpack5和React实现对SSR的支持。
 
-但是目前而言SSR对RxJS支持不是很好，因为RxJS不能在服务端执行。
-
 ### Authorization
 
 事实上，根据[Does the Hacker News API have auth documentation?](https://news.ycombinator.com/item?id=24127575)的说法，以及实际开发中的情况，目前是不太好实现用实际请求的方法进行注册和登录，所以本项目目前采用`catchError`操作符**模拟实现**，同时略去了`reRAPTCHA`人机身份验证部分。
