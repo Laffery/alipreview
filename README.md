@@ -39,10 +39,12 @@ If you wanna developing by yourself, run `yarn dev` to launch a HMR server and e
 
 ### Server Side Render
 
-基于本人的另一个项目[webpack-starter-kit](https://github.com/Laffery/webpack-starter-kit)，完全基于Webpack5和React实现对SSR的支持。
+基于本人的另一个项目[webpack-starter-kit](https://github.com/Laffery/webpack-starter-kit)，完全基于`Webpack5`和`React18`实现对`SSR`的支持。
 
 ### Authorization
 
-事实上，根据[Does the Hacker News API have auth documentation?](https://news.ycombinator.com/item?id=24127575)的说法，以及实际开发中的情况，目前是不太好实现用实际请求的方法进行注册和登录，所以本项目目前采用`catchError`操作符**模拟实现**，同时略去了`reRAPTCHA`人机身份验证部分。
+根据[Does the Hacker News API have auth documentation?](https://news.ycombinator.com/item?id=24127575)的说法，不太好实现在前端调用Hacker News API进行注册和登录。\
+本项目基于express，在BFF层调用Hacker News API**模拟实现**
 
-为了保证接近真实的使用体验，提供一个真实存在的账号（参见配置中的mock account），以及在模拟登录/注册时，颁发一个虚拟的cookie，官方格式为`user=<username>&<32位token>`
+- 登录使用原生接口，并颁发cookie，官方格式为`user=<username>&<32位token>`
+- 注册不开放，提供一个真实存在的账号（参见配置中的mock account），仅可使用此账号进行注册，同时略去了`reRAPTCHA`人机身份验证部分

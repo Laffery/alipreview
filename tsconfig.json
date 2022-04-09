@@ -7,9 +7,9 @@
     "baseUrl": "./src",
     "paths": {
       "@/components/*": ["client/components/*"],
-      "@/utils/*": ["client/utils/*"],
       "@/apis/*": ["client/apis/*"],
-      "@/hooks/*": ["client/hooks/*"]
+      "@/hooks/*": ["client/hooks/*"],
+      "@/utils": ["shared/utils/index"]
     },
     "allowJs": true,
     "skipLibCheck": true,

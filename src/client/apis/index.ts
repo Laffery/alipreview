@@ -1,9 +1,8 @@
-import { firstValueFrom, forkJoin, Observable, of } from "rxjs";
-import { catchError, switchMap } from "rxjs/operators";
+import { firstValueFrom, forkJoin, Observable } from "rxjs";
+import { switchMap } from "rxjs/operators";
 import { Account, Story } from "hackernews";
-import { baseUrl, account as mockAccount, apiUrl } from "config";
+import { baseUrl, apiUrl } from "config";
 import { fromFetch } from "rxjs/fetch";
-import { Status } from "shared/utils";
 
 /**
  * 根据id获取news信息
@@ -31,9 +30,7 @@ export function getTopStories(): Promise<Story[]> {
   return firstValueFrom(source$);
 }
 
-/**
- * 登录
- */
+/** 登录 */
 export function login(account: Account): Observable<string> {
   return fromFetch(`${apiUrl}/login`, {
     method: "POST",
@@ -41,26 +38,10 @@ export function login(account: Account): Observable<string> {
       "content-type": "application/json",
     },
     body: JSON.stringify(account),
-  }).pipe(
-    switchMap(async (res) => {
-      return await res.text();
-    }),
-    catchError((err) => {
-      console.debug(err);
-      if (
-        account.username !== mockAccount.username ||
-        account.password !== mockAccount.password
-      )
-        return of("Bad Login.");
-
-      return of(Status.Success);
-    })
-  );
+  }).pipe(switchMap(async (res) => await res.text()));
 }
 
-/**
- * 新建账户接口
- */
+/** 注册 */
 export function register(account: Account): Observable<string> {
   return fromFetch(`${apiUrl}/register`, {
     method: "POST",
@@ -68,21 +49,5 @@ export function register(account: Account): Observable<string> {
       "content-type": "application/json",
     },
     body: JSON.stringify(account),
-  }).pipe(
-    switchMap(async (res) => {
-      throw res;
-    }),
-    catchError((err) => {
-      console.debug(err);
-      const { username, password } = account;
-      if (username !== mockAccount.username) {
-        return of("That username is taken. Please choose another.");
-      } else if (password.length < 8 || password.length > 72) {
-        return of(
-          "Passwords should be between 8 and 72 characters long. Please choose another."
-        );
-      }
-      return of(Status.Success);
-    })
-  );
+  }).pipe(switchMap(async (res) => await res.text()));
 }

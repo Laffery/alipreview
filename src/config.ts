@@ -10,4 +10,7 @@ export const apiUrl = "http://localhost:3000/api";
 export const hackUrl = "https://news.ycombinator.com";
 
 /** mock account */
-export const account: Account = { username: "laffery", password: "12345678" };
+export const account: Account = {
+  username: "ali-preview",
+  password: "hackernews",
+};

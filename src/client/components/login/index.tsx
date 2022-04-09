@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { login, register } from "@/apis/index";
 import type { Account } from "hackernews";
-import { relRootPath, Status } from "shared/utils/index";
+import { relRootPath, Status } from "@/utils";
 import query from "query-string";
 import AccountForm from "./form";
 import "./index.css";
@@ -11,18 +11,16 @@ import "./index.css";
  * @param goto 登录成功重定向地址
  */
 function Login(props: { message?: string; goto?: string }) {
-  const { search } = window.location;
   const goto = useMemo(() => {
     if (props.goto) return props.goto;
+    const { search } = window.location;
     return (query.parse(search) as Record<string, string>)["goto"] ?? "/";
   }, []);
+
   const [message, setMessage] = useState(props.message ?? "");
 
   function handleResponse(msg: string) {
-    if (msg !== Status.Success) {
-      return setMessage(msg);
-    }
-
+    if (msg !== Status.Success) return setMessage(msg);
     window.location.replace(relRootPath(goto));
   }
 
