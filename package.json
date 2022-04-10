@@ -1,6 +1,6 @@
 {
   "name": "hackernews",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "private": true,
   "author": "laffery",
   "bugs": {
@@ -48,7 +48,6 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "rxjs": "^7.5.5",
-    "serialize-javascript": "^6.0.0",
     "url-parse": "^1.5.10",
     "wait-on": "^6.0.1"
   },
@@ -65,7 +64,6 @@
     "@types/query-string": "^6.3.0",
     "@types/react": "^18.0.1",
     "@types/react-dom": "^18.0.0",
-    "@types/serialize-javascript": "^5.0.2",
     "@types/url-parse": "^1.4.8",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",

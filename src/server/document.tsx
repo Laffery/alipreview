@@ -1,6 +1,7 @@
-import { SSRComponent } from "app";
+import { SSRComponent, SSRData } from "app";
+import React from "react";
 import ReactDOMServer from "react-dom/server";
-import serialize from "serialize-javascript";
+import { Context } from "shared/context";
 
 const PUBLIC_URL = "/_static";
 
@@ -8,6 +9,7 @@ interface DocumentProps {
   title: string;
   scripts: string[];
   styles: string[];
+  location: string;
   element: SSRComponent;
 }
 
@@ -15,19 +17,22 @@ class Document {
   private title: string;
   private scripts: string[];
   private styles: string[];
+  private location: string;
   private element: SSRComponent;
-  private ssr_data: { props: { [key: string]: unknown } } = { props: {} };
+  private ssr_data: SSRData = { props: {} };
 
   constructor({
     title = "React App",
     scripts = [],
     styles = [],
+    location = "/",
     element = { default: () => <div>Loading...</div> },
   }: Partial<DocumentProps>) {
     this.title = title;
     this.scripts = scripts;
     this.styles = styles;
     this.element = element;
+    this.location = location;
   }
 
   protected isSSR(): boolean {
@@ -40,9 +45,16 @@ class Document {
 
     // Server side data fetching
     const { props } = await getServerSideProps();
-    this.ssr_data = { props };
+    const ctx = { props, location: this.location };
+    this.ssr_data = ctx;
 
-    return <App {...props} />;
+    return (
+      <React.StrictMode>
+        <Context.Provider value={ctx}>
+          <App {...props} />;
+        </Context.Provider>
+      </React.StrictMode>
+    );
   }
 
   protected generateInjectFunction(): string {
@@ -50,7 +62,7 @@ class Document {
     return `
       (function () {
         window.SSR = true;
-        window.SSR_DATA = ${serialize(this.ssr_data)};
+        window.SSR_DATA = ${JSON.stringify(this.ssr_data)};
       })()
     `;
   }

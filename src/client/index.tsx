@@ -1,12 +1,7 @@
-import React, { createContext, useContext } from "react";
+import React from "react";
+import { Context, getInitialContextValue, useContext } from "@/context";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-
-const Context = createContext({ props: {} });
-
-const getInitialContextValue = () => {
-  return window && window.SSR_DATA ? window.SSR_DATA : { props: {} };
-};
 
 function Page() {
   const { props } = useContext(Context);

@@ -1,3 +1,8 @@
+interface SSRData {
+  props: Record<string, unknown>;
+  location: string;
+}
+
 declare module "app" {
   interface BuildManifest {
     scripts: Record<string, string>;
@@ -17,11 +22,13 @@ declare module "app" {
     default: (props: Record<string, unknown>) => JSX.Element;
     getServerSideProps?: GetServerSideProps;
   }
+
+  type SSRData = SSRData;
 }
 
 declare interface Window {
   SSR?: boolean;
-  SSR_DATA?: { props: Record<string, unknown> };
+  SSR_DATA?: SSRData;
 }
 
 declare module "hackernews" {

@@ -1,3 +1,4 @@
+import useLocation from "@/hooks/use-location";
 import { findIndex } from "lodash";
 import { useMemo } from "react";
 import "./index.css";
@@ -29,22 +30,19 @@ const primaryPath = (location: string): string => {
 };
 
 export default function Header() {
-  const [
-    /** 当前路径 */
-    path,
-    /** 是否是额外nav */
-    isAddon,
-  ] = useMemo(() => {
-    // const path = primaryPath(window.location.pathname);
-    const path = "";
+  const location = useLocation();
+  /**
+   * @path 当前路径
+   * @isAdd 是否是额外的nav
+   */
+  const [path, isAddon] = useMemo(() => {
+    const path = primaryPath(location);
     if (!path) return [path, false];
     return [
       path,
       findIndex(nav.concat({ href: "news", text: "" }), { href: path }) === -1,
     ];
-  }, [
-    // location.pathname
-  ]);
+  }, [location]);
 
   const HeaderNavItem = (props: NavItem) => {
     const { href, text, lastItem = false, currItem = false } = props;

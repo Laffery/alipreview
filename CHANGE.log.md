@@ -1,21 +1,24 @@
 # Change Logs
 
-- `0.1.0` 首页界面原型
-- `0.1.1` 首页加载数据（rxjs）
-- `0.1.2` Webpack 打包([@laffery/webpack-starter-kit](https://www.npmjs.com/package/@laffery/webpack-starter-kit))
-- `0.1.3` ESlint 和 husky pre-commit 配置
-- `0.1.4` 修复 news 列表上新闻源地址域名显示问题和时间显示问题
-- `0.1.5` 使用 react-router-dom 库实现路由，增加 /newsguidelines 页面
-- `0.1.6` 增加 /newsfaq 页面，和 /newsguidelines 一起抽象出 html-page 组件
-- `0.1.7` 增加 /security 页面，将 html-page 底部红色分割线抽出，通过参数决定是否有
-- `0.1.8` 增加 /lists 页面，首页底部footer全部完成，重构仓库结构
-- `0.1.9` 使用`forkJoin`将列表中请求集中发出，从而实现列表同时渲染的效果
-- `0.1.10` 在 /lists 页面header上显示 lists 白色item，组件化 header-nav-item
-- `0.1.11` 修复pathname为news时 header 的异常ˇ
-- `0.1.12` 完善登录注册逻辑
-- `0.1.13` 将所有Observable请求集中到 /apis
-- `0.2.0` SSR支持，基于@laffery/webpack-starter-kit
-- `0.2.1` 迁移到React18
-- `0.2.2` 修复基于文件的约定式路由问题，移除react-router-dom依赖
-- `0.2.3` 解决SSR不能使用rxjs的问题，服务端集成API
-- `0.2.4` BFF: 从hackernews请求进行登录认证
+- `0.1`
+  - `x.0` 首页界面原型
+  - `x.1` 首页加载数据（rxjs）
+  - `x.2` Webpack 打包([@laffery/webpack-starter-kit](https://www.npmjs.com/pacxe/@laffery/webpack-starter-kit))
+  - `x.3` ESlint 和 husky pre-commit 配置
+  - `x.4` 修复 news 列表上新闻源地址域名显示问题和时间显示问题
+  - `x.5` 使用 react-router-dom 库实现路由，增加 /newsguidelines 页面
+  - `x.6` 增加 /newsfaq 页面，和 /newsguidelines 一起抽象出 html-page 组件
+  - `x.7` 增加 /security 页面，将 html-page 底部红色分割线抽出，通过参数决定是否有
+  - `x.8` 增加 /lists 页面，首页底部footer全部完成，重构仓库结构
+  - `x.9` 使用`forkJoin`将列表中请求集中发出，从而实现列表同时渲染的效果
+  - `x.10` 在 /lists 页面header上显示 lists 白色item，组件化 header-nav-item
+  - `x.11` 修复pathname为news时 header 的异常ˇ
+  - `x.12` 完善登录注册逻辑
+  - `x.13` 将所有Observable请求集中到 /apis
+- `0.2`
+  - `x.0` SSR支持，基于@laffery/webpack-starter-kit
+  - `x.1` 迁移到React18
+  - `x.2` 修复基于文件的约定式路由问题，移除react-router-dom依赖
+  - `x.3` 解决SSR不能使用rxjs的问题，服务端集成API
+  - `x.4` BFF: 从hackernews请求进行登录认证
+  - `x.5` SSR场景下支持useLocation

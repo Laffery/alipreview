@@ -57,6 +57,7 @@ app.get("/*", async (req, res) => {
     scripts,
     styles,
     element: component,
+    location: req.url,
   });
 
   res.end(await document.renderToString());
