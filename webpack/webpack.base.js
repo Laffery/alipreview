@@ -7,6 +7,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const tsConfig = require("../tsconfig.json");
 const TSConfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const workspace = path.join(__dirname, "../");
 const sourceDir = path.join(workspace, "src/client");
@@ -49,13 +50,14 @@ const baseConfig = {
     chunkFilename: `index.${hash}.js`,
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new WebpackManifestPlugin({
       fileName: "build.manifest.json",
       filter: (file) => file.isChunk,
       generate: (_seed, files) => {
         const manifest = { scripts: {}, styles: {} };
         files.forEach(file => {
-          const path = file.path.replace(/auto(\/|\\)/, "").replace(/(\/|\\)+/g, "/");
+          const path = file.path.replace(/auto/, "").replace(/(\/|\\)+/g, "/");
           // is script
           if (/.*\.js/.test(file.name)) {
             manifest.scripts[file.name.replace(/\.js/, "")] = path;
