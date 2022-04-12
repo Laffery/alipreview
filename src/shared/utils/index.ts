@@ -1,5 +1,3 @@
-import { Account } from "hackernews";
-
 /**
  * @param num 给定数字
  * @param suffix 默认复数添加后缀`s`
@@ -57,10 +55,21 @@ export enum Status {
   Error = "Error",
 }
 
-export const cvtAccount2FormData = (account: Account): string => {
-  const formData = [
-    encodeURIComponent("acct") + "=" + encodeURIComponent(account.username),
-    encodeURIComponent("pw") + "=" + encodeURIComponent(account.password),
-  ];
-  return formData.join("&");
-};
+/** 获取Cookie */
+export function getCookie(
+  cookie: string | undefined,
+  name: string | undefined
+): string {
+  if (!cookie) return "";
+  if (!name) return cookie;
+
+  let start = cookie.indexOf(`${name}=`);
+  if (start !== -1) {
+    start = start + name.length + 1;
+    let end = cookie.indexOf(";", start);
+    if (end === -1) end = cookie.length;
+    return decodeURI(cookie.substring(start, end));
+  }
+
+  return "";
+}

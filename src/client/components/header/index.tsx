@@ -1,3 +1,4 @@
+import useAuth from "@/hooks/use-auth";
 import useLocation from "@/hooks/use-location";
 import { findIndex } from "lodash";
 import { useMemo } from "react";
@@ -30,6 +31,7 @@ const primaryPath = (location: string): string => {
 };
 
 export default function Header() {
+  const user = useAuth();
   const location = useLocation();
   /**
    * @path 当前路径
@@ -89,7 +91,20 @@ export default function Header() {
             </td>
             <td id="td-3">
               <span className="pagetop">
-                <a href="login?goto=news">login</a>
+                {user ? (
+                  <>
+                    <a id="me" href={`/user?id=${user.id}`}>
+                      {user.id}
+                    </a>
+                    {user.karma && <span id="karma">({user.karma})</span>}
+                    {"| "}
+                    <a id="logout" href={`logout?auth=${""}&goto=${location}`}>
+                      logout
+                    </a>
+                  </>
+                ) : (
+                  <a href="login?goto=news">login</a>
+                )}
               </span>
             </td>
           </tr>

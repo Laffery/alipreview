@@ -43,8 +43,8 @@ If you wanna developing by yourself, run `yarn dev` to launch a HMR server and e
 
 ### Authorization
 
-根据[Does the Hacker News API have auth documentation?](https://news.ycombinator.com/item?id=24127575)的说法，不太好实现在前端调用Hacker News API进行注册和登录。\
-本项目基于express，在BFF层调用Hacker News API**模拟实现**
+根据[Does the Hacker News API have auth documentation?](https://news.ycombinator.com/item?id=24127575)，并且原生的登录注册接口还需要`reRAPTCHA`人机身份验证，因此不太好实现调用Hacker News API进行注册和登录。\
+本项目基于express，提供一个真实存在的账号（参见配置中的mock account），在BFF层**模拟实现**
 
-- 登录使用原生接口，并颁发cookie，官方格式为`user=<username>&<32位token>`
-- 注册不开放，提供一个真实存在的账号（参见配置中的mock account），仅可使用此账号进行注册，同时略去了`reRAPTCHA`人机身份验证部分
+- 注册不开放，仅可使用提供的账号进行注册
+- 登录仅可使用提供的账号进行登录，并颁发预设的cookie（过期时间到2038年，足够可用）

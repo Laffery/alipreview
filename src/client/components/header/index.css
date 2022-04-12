@@ -40,6 +40,10 @@
   margin-right: 10px;
 }
 
+.header #td-3 .pagetop a {
+  padding-right: 2px;
+}
+
 .header #td-2 #addon span {
   color: white;
 }

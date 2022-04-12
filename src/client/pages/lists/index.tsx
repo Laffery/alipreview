@@ -1,7 +1,7 @@
-import "./index.css";
-import Header from "../../components/header";
-import Footer from "../../components/footer";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 import { ReactNode, useEffect } from "react";
+import "./index.css";
 
 type ListItem = { href: string; alt: string; description: ReactNode | string };
 

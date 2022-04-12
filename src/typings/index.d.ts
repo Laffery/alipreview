@@ -1,30 +1,29 @@
 interface SSRData {
   props: Record<string, unknown>;
   location: string;
+  cookie: string;
 }
 
-declare module "app" {
-  interface BuildManifest {
-    scripts: Record<string, string>;
-    styles: Record<string, string>;
-  }
-
-  interface BuildManifest {
-    scripts: Record<string, string>;
-    styles: Record<string, string>;
-  }
-
-  type GetServerSideProps<T extends Record<string, unknown>> = () => Promise<{
-    props: T;
-  }>;
-
-  interface SSRComponent {
-    default: (props: Record<string, unknown>) => JSX.Element;
-    getServerSideProps?: GetServerSideProps;
-  }
-
-  type SSRData = SSRData;
+interface BuildManifest {
+  scripts: Record<string, string>;
+  styles: Record<string, string>;
 }
+
+interface BuildManifest {
+  scripts: Record<string, string>;
+  styles: Record<string, string>;
+}
+
+type GetServerSideProps<T extends Record<string, unknown>> = () => Promise<{
+  props: T;
+}>;
+
+interface SSRComponent {
+  default: (props: Record<string, unknown>) => JSX.Element;
+  getServerSideProps?: GetServerSideProps;
+}
+
+type SSRData = SSRData;
 
 declare interface Window {
   SSR?: boolean;
@@ -51,5 +50,11 @@ declare module "hackernews" {
   export interface Account {
     username: string;
     password: string;
+  }
+
+  export interface User {
+    created: number;
+    id: string;
+    karma: number;
   }
 }

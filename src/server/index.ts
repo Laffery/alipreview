@@ -3,7 +3,6 @@ import fs from "fs-extra";
 import path from "path";
 import urlParse from "url-parse";
 import Document from "./document";
-import { BuildManifest, SSRComponent } from "app";
 import services from "./services";
 import fetch from "node-fetch";
 
@@ -58,6 +57,7 @@ app.get("/*", async (req, res) => {
     styles,
     element: component,
     location: req.url,
+    cookie: req.headers.cookie,
   });
 
   res.end(await document.renderToString());

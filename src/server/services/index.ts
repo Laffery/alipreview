@@ -1,6 +1,6 @@
 import { Account } from "hackernews";
-import { Status, cvtAccount2FormData } from "@/utils";
-import { hackUrl, account as mockAccount } from "config";
+import { getCookie, Status } from "@/utils";
+import { account as mockAccount, cookie, baseUrl } from "config";
 import { Router } from "express";
 import dayjs from "dayjs";
 
@@ -11,31 +11,19 @@ router.use((req, _res, next) => {
   next();
 });
 
-router.post("/login", async (req, res) => {
-  const result = await fetch(`${hackUrl}/login`, {
-    method: "POST",
-    headers: {
-      "content-type": "application/x-www-form-urlencoded",
-    },
-    body: cvtAccount2FormData(req.body),
-    // prevent redirect automatically
-    redirect: "manual",
-  });
+router.post("/user/login", async (req, res) => {
+  const { username, password } = req.body as Account;
 
-  const html = await result.text();
-  if (/Bad login\./.test(html)) {
+  if (username !== mockAccount.username || password !== mockAccount.password) {
     return res.end("Bad login.");
   }
 
-  const setCookie = result.headers.get("set-cookie");
-  if (setCookie) {
-    res.header("set-cookie", setCookie);
-  }
+  res.header("set-cookie", cookie);
 
   return res.end(Status.Success);
 });
 
-router.post("/register", (req, res) => {
+router.post("/user/register", (req, res) => {
   const { username, password } = req.body as Account;
 
   if (username !== mockAccount.username) {
@@ -45,6 +33,14 @@ router.post("/register", (req, res) => {
   }
 
   return res.end(Status.Success);
+});
+
+router.get("/user/info", async (req, res) => {
+  const userId = getCookie(req.header("cookie"), "user").replace(/&.*$/, "");
+
+  const result = await fetch(`${baseUrl}/v0/user/${userId}.json`);
+
+  return res.json(await result.json());
 });
 
 export default router;

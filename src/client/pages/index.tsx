@@ -1,12 +1,12 @@
 import "./index.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import { GetServerSideProps } from "app";
 import { Story } from "hackernews";
 import StoryItem from "@/components/list-item";
 import { getTopStories } from "@/apis/index";
+import { firstValueFrom } from "rxjs";
 
-function App({ data: items }: { data: Story[] }) {
+function App({ data = [] }: { data: Story[] }) {
   return (
     <div className="App">
       <table id="root" className="full-width">
@@ -20,7 +20,7 @@ function App({ data: items }: { data: Story[] }) {
             <td>
               <table style={{ marginTop: 10 }}>
                 <tbody>
-                  {items.map((item, index) => (
+                  {data.map((item, index) => (
                     <StoryItem key={index} data={item} rank={index + 1} />
                   ))}
                   <tr className="more-space"></tr>
@@ -48,5 +48,6 @@ export default App;
 export const getServerSideProps: GetServerSideProps<{
   data: Story[];
 }> = async () => {
-  return { props: { data: await getTopStories() } };
+  const source$ = getTopStories();
+  return { props: { data: await firstValueFrom(source$) } };
 };

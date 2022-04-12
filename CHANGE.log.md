@@ -22,3 +22,4 @@
   - `x.3` 解决SSR不能使用rxjs的问题，服务端集成API
   - `x.4` BFF: 从hackernews请求进行登录认证
   - `x.5` SSR场景下支持useLocation
+  - `x.6` SSR场景下根据Cookie获取当前登录用户信息

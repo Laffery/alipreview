@@ -1,17 +1,15 @@
-import { SSRComponent, SSRData } from "app";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
-import { Context } from "shared/context";
+import { Context, defaultContextValue } from "shared/context";
 
 const PUBLIC_URL = "/_static";
 
-interface DocumentProps {
+type DocumentProps = {
   title: string;
   scripts: string[];
   styles: string[];
-  location: string;
   element: SSRComponent;
-}
+} & Omit<SSRData, "props">;
 
 class Document {
   private title: string;
@@ -19,13 +17,15 @@ class Document {
   private styles: string[];
   private location: string;
   private element: SSRComponent;
-  private ssr_data: SSRData = { props: {} };
+  private cookie: string;
+  private ssrData: SSRData = defaultContextValue;
 
   constructor({
     title = "React App",
     scripts = [],
     styles = [],
     location = "/",
+    cookie = "",
     element = { default: () => <div>Loading...</div> },
   }: Partial<DocumentProps>) {
     this.title = title;
@@ -33,6 +33,7 @@ class Document {
     this.styles = styles;
     this.element = element;
     this.location = location;
+    this.cookie = cookie;
   }
 
   protected isSSR(): boolean {
@@ -45,12 +46,11 @@ class Document {
 
     // Server side data fetching
     const { props } = await getServerSideProps();
-    const ctx = { props, location: this.location };
-    this.ssr_data = ctx;
+    this.ssrData = { props, location: this.location, cookie: this.cookie };
 
     return (
       <React.StrictMode>
-        <Context.Provider value={ctx}>
+        <Context.Provider value={this.ssrData}>
           <App {...props} />;
         </Context.Provider>
       </React.StrictMode>
@@ -62,8 +62,8 @@ class Document {
     return `
       (function () {
         window.SSR = true;
-        window.SSR_DATA = ${JSON.stringify(this.ssr_data)};
-      })()
+        window.SSR_DATA = ${JSON.stringify(this.ssrData)};
+      })();
     `;
   }
 

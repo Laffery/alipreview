@@ -14,3 +14,6 @@ export const account: Account = {
   username: "ali-preview",
   password: "hackernews",
 };
+
+export const cookie =
+  "user=ali-preview&Bdz7eaI9eD1SvctplVCnPIT2OoHSwEL5; path=/; Expires=Sun, 17-Jan-2038 19:14:07 GMT; HttpOnly; SameSite=Lax; Secure";
