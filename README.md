@@ -48,3 +48,4 @@ If you wanna developing by yourself, run `yarn dev` to launch a HMR server and e
 
 - 注册不开放，仅可使用提供的账号进行注册
 - 登录仅可使用提供的账号进行登录，并颁发预设的cookie（过期时间到2038年，足够可用）
+- forget忘记密码重置-不支持（因为我们只有唯一指定的账号）

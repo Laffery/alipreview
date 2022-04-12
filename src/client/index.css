@@ -73,3 +73,7 @@ a:link {
 .text-align-right {
   text-align: right;
 }
+
+.none {
+  display: none !important;
+}

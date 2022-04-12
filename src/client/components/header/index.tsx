@@ -2,17 +2,21 @@ import useAuth from "@/hooks/use-auth";
 import useLocation from "@/hooks/use-location";
 import { findIndex } from "lodash";
 import { useMemo } from "react";
+import { classNames } from "@/utils";
 import "./index.css";
 
 interface NavItem {
   href: string;
   text: string;
+  auth?: boolean; // need login
   lastItem?: boolean;
   currItem?: boolean;
 }
 
 const nav: NavItem[] = [
+  { href: "newswelcome", text: "welcome", auth: true },
   { href: "newest", text: "new" },
+  { href: "threads", text: "threads", auth: true },
   { href: "front", text: "past" },
   { href: "newcomments", text: "comments" },
   { href: "ask", text: "ask" },
@@ -30,7 +34,15 @@ const primaryPath = (location: string): string => {
   return paths ? paths[1] : "";
 };
 
-export default function Header() {
+export default function Header({
+  title = "Hacker News",
+  tabs = true,
+  auth = true,
+}: Partial<{
+  title: string;
+  tabs: boolean;
+  auth: boolean;
+}>) {
   const [user, logout] = useAuth();
   const location = useLocation();
   /**
@@ -72,25 +84,32 @@ export default function Header() {
             <td id="td-2">
               <span className="pagetop">
                 <b>
-                  <a href="news">Hacker News</a>
+                  <a href="news">{title}</a>
                 </b>
-                {nav.map((item, index) => (
-                  <HeaderNavItem
-                    key={index}
-                    {...item}
-                    currItem={path === item.href}
-                  />
-                ))}
-                {isAddon && (
-                  <span id="addon">
-                    {" | "}
-                    <span>{path}</span>
-                  </span>
+                {tabs && (
+                  <>
+                    {nav.map(
+                      (item, index) =>
+                        (!item.auth || user) && (
+                          <HeaderNavItem
+                            key={index}
+                            {...item}
+                            currItem={path === item.href}
+                          />
+                        )
+                    )}
+                    {isAddon && (
+                      <span id="addon">
+                        {" | "}
+                        <span>{path}</span>
+                      </span>
+                    )}
+                  </>
                 )}
               </span>
             </td>
             <td id="td-3">
-              <span className="pagetop">
+              <span className={classNames("pagetop", { none: !auth })}>
                 {user ? (
                   <>
                     <a id="me" href={`/user?id=${user.id}`}>

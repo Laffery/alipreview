@@ -58,10 +58,14 @@ const StoryItem = ({ rank, data }: ItemProps) => {
           </span>
           {" | "}
           <a href="/">hide</a>
-          {" | "}
-          <a href="/">
-            {data.descendants}&nbsp;comment{plural(data.descendants)}
-          </a>
+          {data.descendants > 0 && (
+            <>
+              {" | "}
+              <a href="/">
+                {data.descendants}&nbsp;comment{plural(data.descendants)}
+              </a>
+            </>
+          )}
         </td>
       </tr>
       <tr className="spacer"></tr>

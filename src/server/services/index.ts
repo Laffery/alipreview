@@ -11,6 +11,7 @@ router.use((req, _res, next) => {
   next();
 });
 
+/** 登录 */
 router.post("/user/login", async (req, res) => {
   const { username, password } = req.body as Account;
 
@@ -23,6 +24,7 @@ router.post("/user/login", async (req, res) => {
   return res.end(Status.Success);
 });
 
+/** 登出 */
 router.delete("/user/logout", async (req, res) => {
   res.header(
     "set-cookie",
@@ -31,6 +33,7 @@ router.delete("/user/logout", async (req, res) => {
   return res.end(Status.Success);
 });
 
+/** 注册用户 */
 router.post("/user/register", (req, res) => {
   const { username, password } = req.body as Account;
 
@@ -43,6 +46,7 @@ router.post("/user/register", (req, res) => {
   return res.end(Status.Success);
 });
 
+/** 根据cookie获取当前登录用户的信息 */
 router.get("/user/info", async (req, res) => {
   const userId = getCookie(req.header("cookie"), "user").replace(/&.*$/, "");
 

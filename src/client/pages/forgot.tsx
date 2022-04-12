@@ -1,5 +1,3 @@
-import "./index.css";
-
 function Forgot() {
   return (
     <div className="login">

@@ -39,11 +39,9 @@ app.listen(port, () => {
 
 app.get("/*", async (req, res) => {
   const { pathname } = urlParse(req.url);
-  if (
-    !Object.keys(manifest.scripts).includes(pathname) ||
-    !Object.keys(manifest.styles).includes(pathname)
-  )
+  if (!Object.keys(manifest.scripts).includes(pathname)) {
     return res.end("404 Not Found");
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const component: SSRComponent = require(`../client/pages${pathname}`);

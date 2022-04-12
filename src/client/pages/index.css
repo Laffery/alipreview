@@ -5,3 +5,17 @@
   margin: auto;
   background-color: rgb(246, 246, 239);
 }
+
+.login {
+  font: 16px "PingFang SC" !important;
+  color: #000000;
+}
+
+.login a {
+  text-decoration: underline;
+  color: #0000ee;
+}
+
+.login td .label {
+  padding: 1px !important;
+}
