@@ -2,24 +2,41 @@ import { useEffect, useState } from "react";
 import { User } from "hackernews";
 import { apiUrl } from "config";
 import { fromFetch } from "rxjs/fetch";
-import { firstValueFrom } from "rxjs";
+import { firstValueFrom, switchMap } from "rxjs";
 import useCookie from "./use-cookie";
+import { Status } from "@/utils";
 
-function useAuth(): User | undefined {
+function useAuth(): [User | undefined, () => Promise<string>] {
   const [user, setUser] = useState<User>();
   const { cookie } = useCookie();
+  const logout = async () => {
+    console.log("hello");
+    if (!user) return Status.Success;
+    setUser(undefined);
+    return firstValueFrom(
+      fromFetch(`${apiUrl}/user/logout`, {
+        method: "delete",
+      }).pipe(
+        switchMap(async (res) => {
+          return await res.text();
+        })
+      )
+    );
+  };
 
   useEffect(() => {
     firstValueFrom(
       fromFetch(`${apiUrl}/user/info`, {
         headers: { cookie },
       })
-    ).then(async (res) => {
-      setUser((await res.json()) as User);
-    });
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        if (!res["error"]) setUser(res as User);
+      });
   }, []);
 
-  return user;
+  return [user, logout];
 }
 
 export default useAuth;

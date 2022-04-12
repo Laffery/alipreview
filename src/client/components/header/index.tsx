@@ -31,7 +31,7 @@ const primaryPath = (location: string): string => {
 };
 
 export default function Header() {
-  const user = useAuth();
+  const [user, logout] = useAuth();
   const location = useLocation();
   /**
    * @path 当前路径
@@ -98,9 +98,9 @@ export default function Header() {
                     </a>
                     {user.karma && <span id="karma">({user.karma})</span>}
                     {"| "}
-                    <a id="logout" href={`logout?auth=${""}&goto=${location}`}>
+                    <span id="logout" onClick={() => logout()}>
                       logout
-                    </a>
+                    </span>
                   </>
                 ) : (
                   <a href="login?goto=news">login</a>

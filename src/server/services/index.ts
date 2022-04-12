@@ -23,6 +23,14 @@ router.post("/user/login", async (req, res) => {
   return res.end(Status.Success);
 });
 
+router.delete("/user/logout", async (req, res) => {
+  res.header(
+    "set-cookie",
+    "user=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT;"
+  );
+  return res.end(Status.Success);
+});
+
 router.post("/user/register", (req, res) => {
   const { username, password } = req.body as Account;
 
@@ -39,7 +47,6 @@ router.get("/user/info", async (req, res) => {
   const userId = getCookie(req.header("cookie"), "user").replace(/&.*$/, "");
 
   const result = await fetch(`${baseUrl}/v0/user/${userId}.json`);
-
   return res.json(await result.json());
 });
 

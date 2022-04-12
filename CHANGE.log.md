@@ -1,6 +1,6 @@
 # Change Logs
 
-- `0.1`
+- `0.1.x`
   - `x.0` 首页界面原型
   - `x.1` 首页加载数据（rxjs）
   - `x.2` Webpack 打包([@laffery/webpack-starter-kit](https://www.npmjs.com/pacxe/@laffery/webpack-starter-kit))
@@ -15,7 +15,7 @@
   - `x.11` 修复pathname为news时 header 的异常ˇ
   - `x.12` 完善登录注册逻辑
   - `x.13` 将所有Observable请求集中到 /apis
-- `0.2`
+- `0.2.x`
   - `x.0` SSR支持，基于@laffery/webpack-starter-kit
   - `x.1` 迁移到React18
   - `x.2` 修复基于文件的约定式路由问题，移除react-router-dom依赖
@@ -23,3 +23,4 @@
   - `x.4` BFF: 从hackernews请求进行登录认证
   - `x.5` SSR场景下支持useLocation
   - `x.6` SSR场景下根据Cookie获取当前登录用户信息
+  - `x.7` log out

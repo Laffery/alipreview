@@ -56,3 +56,7 @@
 .header #td-3 span {
   padding-right: 4px;
 }
+
+#logout {
+  cursor: pointer;
+}
