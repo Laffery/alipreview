@@ -1,13 +1,9 @@
 import HTMLPage from "@/components/html-page";
-import { useEffect } from "react";
 
 function Welcome() {
-  useEffect(() => {
-    document.title = "Hacker News: Welcome";
-  }, []);
-
   return (
     <HTMLPage
+      title="Hacker News: Welcome"
       footSeparator
       article={
         <>

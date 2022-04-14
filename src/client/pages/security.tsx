@@ -1,8 +1,9 @@
-import HTMLPage from "../components/html-page";
+import HTMLPage from "@/components/html-page";
 
 function Security() {
   return (
     <HTMLPage
+      title="Hacker News Security"
       article={
         <>
           <br />

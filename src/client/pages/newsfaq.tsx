@@ -3,6 +3,7 @@ import HTMLPage from "@/components/html-page";
 function FAQ() {
   return (
     <HTMLPage
+      title="Hacker News FAQ"
       footSeparator
       article={
         <>

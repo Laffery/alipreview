@@ -1,13 +1,19 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import "./index.css";
 
 function HTMLPage({
+  title = "Hacker News",
   article,
   footSeparator = false,
 }: {
   article: ReactNode;
+  title?: string;
   footSeparator?: boolean;
 }) {
+  useEffect(() => {
+    document.title = title;
+  }, []);
+
   return (
     <table id="html-page">
       <br />
