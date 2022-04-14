@@ -25,3 +25,4 @@
   - `x.6` SSR场景下根据Cookie获取当前登录用户信息
   - `x.7` log out
   - `x.8` /x页面，登录后header新增item(welcome, threads)
+  - `x.9` /newswelcome页面，修复标签页title问题
