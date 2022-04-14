@@ -1,6 +1,11 @@
 import HTMLPage from "@/components/html-page";
+import { useEffect } from "react";
 
 function Welcome() {
+  useEffect(() => {
+    document.title = "Hacker News: Welcome";
+  }, []);
+
   return (
     <HTMLPage
       footSeparator
@@ -8,164 +13,74 @@ function Welcome() {
         <>
           <br />
           <br />
-          <b>Hacker News Guidelines</b>
+          <b>Welcome to Hacker News</b>
           <br />
           <br />
-          <b>What to Submit</b>
           <p>
-            {`On-Topic: Anything that good hackers would find interesting. That
-      includes more than hacking and startups. If you had to reduce it
-      to a sentence, the answer might be: anything that gratifies one's
-      intellectual curiosity.`}
+            <a href="http://news.ycombinator.com">Hacker News</a>
+            {` is a bit
+            different from other community sites, and we'd appreciate it if
+            you'd take a minute to read the following as well as the `}
+            <a href="newsguidelines.html">official guidelines</a>.
           </p>
           <p>
-            {`Off-Topic: Most stories about politics, or crime, or sports,
-      unless they're evidence of some interesting new phenomenon. Videos
-      of pratfalls or disasters, or cute animal pictures. If they'd
-      cover it on TV news, it's probably off-topic.`}
+            {`HN is an experiment. As a rule, a community site that becomes
+            popular will decline in quality. Our hypothesis is that this is not
+            inevitable—that by making a conscious effort to resist decline, we
+            can keep it from happening.`}
           </p>
           <p>
-            <b>In Submissions</b>
+            {`Essentially there are two rules here: don't post or upvote crap
+            links, and don't be rude or dumb in comment threads.`}
           </p>
           <p>
-            {`Please don't do things to make titles stand out, like using
-      uppercase or exclamation points, or saying how great an article
-      is. It's implicit in submitting something that you think it's
-      important.`}
+            {`A crap link is one that's only superficially interesting. Stories on
+            HN don't have to be about hacking, because good hackers aren't only
+            interested in hacking, but they do have to be deeply interesting.`}
           </p>
           <p>
-            Please submit the original source. If a post reports on something
-            found on another site, submit the latter.
+            {`What does "deeply interesting" mean? It means stuff that teaches you
+            about the world. A story about a robbery, for example, would
+            probably not be deeply interesting. But if this robbery was a sign
+            of some bigger, underlying trend, perhaps it could be.`}
           </p>
           <p>
-            If the title includes the name of the site, please take it out,
-            because the site name will be displayed after the link.
+            {`The worst thing to post or upvote is something that's intensely but
+            shallowly interesting: gossip about famous people, funny or cute
+            pictures or videos, partisan political articles, etc. If you let `}
+            <a href="http://en.wikipedia.org/wiki/Nile_perch">that</a>
+            {`sort of thing onto a news site, it will push aside the deeply
+            interesting stuff, which tends to be quieter.`}
           </p>
           <p>
-            If you submit a video or pdf, please warn us by appending [video] or
-            [pdf] to the title.
+            {`The most important principle on HN, though, is to make thoughtful
+            comments. Thoughtful in both senses: civil and substantial.`}
           </p>
           <p>
-            {`If the title contains a gratuitous number or number + adjective,
-      we'd appreciate it if you'd crop it. E.g. translate "10 Ways To Do
-      X" to "How To Do X," and "14 Amazing Ys" to "Ys." Exception: when
-      the number is meaningful, e.g. "The 5 Platonic Solids."`}
+            {`The test for substance is a lot like it is for links. Does your
+            comment teach us anything? There are two ways to do that: by
+            pointing out some consideration that hadn't previously been
+            mentioned, and by giving more information about the topic, perhaps
+            from personal experience. Whereas comments like "LOL!" or worse
+            still, "That's retarded!" teach us nothing.`}
           </p>
           <p>
-            {`Otherwise please use the original title, unless it is misleading
-      or linkbait; don't editorialize.`}
+            {`Empty comments can be ok if they're positive. There's nothing wrong
+            with submitting a comment saying just "Thanks." What we especially
+            discourage are comments that are empty and negative—comments that
+            are mere name-calling.`}
           </p>
           <p>
-            {`Please don't post on HN to ask or tell us something. Send it to
-      hn@ycombinator.com.`}
+            {`Which brings us to the most important principle on HN: civility.
+            Since long before the web, the anonymity of online conversation has
+            lured people into being much ruder than they'd be in person. So the
+            principle here is: don't say anything you wouldn't say face to face.
+            This doesn't mean you can't disagree. But disagree without calling
+            names. If you're right, your argument will be more convincing
+            without them.`}
           </p>
-          <p>
-            {`Please don't delete and repost. Deletion is for things that
-      shouldn't have been submitted in the first place.`}
-          </p>
-          <p>
-            {`Please don't use HN primarily for promotion. It's ok to post your
-      own stuff occasionally, but the primary use of the site should be
-      for curiosity.`}
-          </p>
-          <p>
-            {`Don't solicit upvotes, comments, or submissions. Users should vote
-      and comment when they run across something they personally find
-      interesting—not for promotion.`}
-          </p>
-          <p>
-            <b id="comments">In Comments</b>
-          </p>
-          <p>
-            {`Be kind. Don't be snarky. Have curious conversation; don't
-      cross-examine. Please don't fulminate. Please don't sneer,
-      including at the rest of the community.`}
-          </p>
-          <p>
-            Comments should get more thoughtful and substantive, not less, as a
-            topic gets more divisive.
-          </p>
-          <p>
-            {`When disagreeing, please reply to the argument instead of calling
-      names. "That is idiotic; 1 + 1 is 2, not 3" can be shortened to "1
-      + 1 is 2, not 3."`}
-          </p>
-          <p>
-            {`Please respond to the strongest plausible interpretation of what
-      someone says, not a weaker one that's easier to criticize. Assume
-      good faith.`}
-          </p>
-          <p>
-            Eschew flamebait. Avoid unrelated controversies and generic
-            tangents.
-          </p>
-          <p>
-            {`Please don't post shallow dismissals, especially of other people's
-      work. A good critical comment teaches us something.`}
-          </p>
-          <p>
-            {`Please don't use Hacker News for political or ideological battle.
-      It tramples curiosity.`}
-          </p>
-          <p>
-            {`Please don't comment on whether someone read an article. "Did you
-      even read the article? It mentions that" can be shortened to "The
-      article mentions that."`}
-          </p>
-          <p>
-            {`Please don't pick the most provocative thing in an article or post
-      and rush to the thread to complain about it. Find something
-      interesting to comment about instead.`}
-          </p>
-          <p>
-            {`Throwaway accounts are ok for sensitive information, but please
-      don't create accounts routinely. HN is a community—users should
-      have an identity that others can relate to.`}
-          </p>
-          <p>
-            {`Please don't use uppercase for emphasis. If you want to emphasize
-      a word or phrase, put *asterisks* around it and it will get
-      italicized.`}
-          </p>
-          <p>
-            {`Please don't post insinuations about astroturfing, shilling,
-      brigading, foreign agents and the like. It degrades discussion and
-      is usually mistaken. If you're worried about abuse, email
-      hn@ycombinator.com and we'll look at the data.`}
-          </p>
-          <p>
-            {`Please don't complain that a submission is inappropriate. If a
-      story is spam or off-topic, flag it. Don't feed egregious comments
-      by replying; `}
-            <a href="newsfaq.html#cflag">flag</a>
-            {` them instead.
-      If you flag, please don't also comment that you did.`}
-          </p>
-          <p>
-            {`Please don't complain about tangential annoyances—things like
-      article or website formats, name collisions, or back-button
-      breakage. They're too common to be interesting.`}
-          </p>
-          <p>
-            {`Please don't comment about the voting on comments. It never does
-      any good, and it makes boring reading.`}
-          </p>
-
-          <p>
-            {`Please don't post comments saying that HN is turning into Reddit.
-              It's a `}
-            <a href="https://news.ycombinator.com/item?id=926703">semi-noob</a>{" "}
-            <a href="https://news.ycombinator.com/item?id=633099">illusion</a>
-            {", "}
-            <a href="https://news.ycombinator.com/item?id=582513">as</a>{" "}
-            <a href="https://news.ycombinator.com/item?id=289254">old</a>{" "}
-            <a href="https://news.ycombinator.com/item?id=253657">as</a>{" "}
-            <a href="https://news.ycombinator.com/item?id=66057">the</a>{" "}
-            <a href="https://news.ycombinator.com/item?id=13852">hills</a>
-            {"."}
-            <br />
-            <br />
-          </p>
+          <br />
+          <br />
         </>
       }
     />
