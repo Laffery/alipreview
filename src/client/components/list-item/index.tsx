@@ -5,9 +5,10 @@ import "./index.css";
 interface ItemProps {
   data: Story;
   rank: number;
+  hidable?: boolean;
 }
 
-const StoryItem = ({ rank, data }: ItemProps) => {
+const StoryItem = ({ rank, data, hidable = true }: ItemProps) => {
   const SiteTag = () => {
     if (!data.url) return null;
     return (
@@ -56,8 +57,12 @@ const StoryItem = ({ rank, data }: ItemProps) => {
           <span className="age">
             <a href="/">{ago(data.time)}</a>
           </span>
-          {" | "}
-          <a href="/">hide</a>
+          {hidable && (
+            <>
+              {" | "}
+              <a href="/">hide</a>
+            </>
+          )}
           {data.descendants > 0 && (
             <>
               {" | "}

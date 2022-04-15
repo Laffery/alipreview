@@ -1,6 +1,6 @@
 {
   "name": "hackernews",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "private": true,
   "author": "laffery",
   "bugs": {
@@ -35,10 +35,10 @@
     ]
   },
   "dependencies": {
-    "ahooks": "^3.3.0",
+    "ahooks": "^3.3.8",
     "concurrently": "^7.1.0",
     "cross-env": "^7.0.3",
-    "dayjs": "^1.11.0",
+    "dayjs": "^1.11.1",
     "express": "^4.17.3",
     "fs-extra": "^10.0.1",
     "lodash": "^4.17.21",
@@ -63,7 +63,7 @@
     "@types/node-fetch": "^2.6.1",
     "@types/query-string": "^6.3.0",
     "@types/react": "^18.0.5",
-    "@types/react-dom": "^18.0.0",
+    "@types/react-dom": "^18.0.1",
     "@types/url-parse": "^1.4.8",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
@@ -77,7 +77,7 @@
     "glob": "^8.0.1",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^7.0.4",
-    "lint-staged": "^12.3.7",
+    "lint-staged": "^12.3.8",
     "mini-css-extract-plugin": "^2.6.0",
     "prettier": "^2.6.2",
     "react-dev-utils": "^12.0.1",

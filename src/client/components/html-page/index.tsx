@@ -1,18 +1,37 @@
-import { ReactNode, useEffect } from "react";
+import useTitle from "@/hooks/use-title";
+import type { ReactNode } from "react";
 import "./index.css";
 
-function HTMLPage({
-  title = "Hacker News",
-  article,
-  footSeparator = false,
-}: {
+type HTMLPageProps = {
   article: ReactNode;
-  title?: string;
-  footSeparator?: boolean;
-}) {
-  useEffect(() => {
-    document.title = title;
-  }, []);
+  title: string;
+  footSeparator: boolean;
+};
+
+function HTMLPage({
+  article,
+  title = "Hacker News",
+  footSeparator = false,
+}: Partial<HTMLPageProps>) {
+  useTitle(title);
+
+  const FootSeparator = footSeparator ? (
+    <>
+      <table style={{ backgroundColor: "#ff6600", width: "100%" }}>
+        <tbody>
+          <tr>
+            <td className="separator"></td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <span>
+          <br />
+          <br />
+        </span>
+      </p>
+    </>
+  ) : null;
 
   return (
     <table id="html-page">
@@ -31,23 +50,7 @@ function HTMLPage({
 
             {article}
 
-            {footSeparator && (
-              <>
-                <table style={{ backgroundColor: "#ff6600", width: "100%" }}>
-                  <tbody>
-                    <tr>
-                      <td className="separator"></td>
-                    </tr>
-                  </tbody>
-                </table>
-                <p>
-                  <span>
-                    <br />
-                    <br />
-                  </span>
-                </p>
-              </>
-            )}
+            {FootSeparator}
           </td>
         </tr>
       </tbody>

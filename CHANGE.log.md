@@ -26,3 +26,6 @@
   - `x.7` log out
   - `x.8` /x页面，登录后header新增item(welcome, threads)
   - `x.9` /newswelcome页面，修复标签页title问题
+  - `x.10` newest ask show job stories API及页面
+    - useTitle
+    - layout抽象封装
