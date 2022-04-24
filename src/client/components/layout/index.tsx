@@ -1,7 +1,8 @@
-import Header from "./header";
-import Footer from "./footer";
-import StoryItem from "./list-item";
+import Header from "../header";
+import Footer from "../footer";
+import StoryItem from "../list-item";
 import type { Story } from "hackernews";
+import "./index.css";
 
 function Layout({
   data,
@@ -33,7 +34,7 @@ function Layout({
                 <tr className="more-space"></tr>
                 <tr>
                   <td colSpan={2}></td>
-                  <td>More</td>
+                  <td className="more">More</td>
                 </tr>
               </tbody>
             </table>

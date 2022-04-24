@@ -1,27 +1,30 @@
-const path = require("path");
-const nodeExternals = require("webpack-node-externals");
-const TSConfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
-const tsConfig = require("../tsconfig.json");
+import path from "path";
+import { Configuration } from "webpack";
+import nodeExternals from "webpack-node-externals";
+import TSConfigPathsPlugin from "tsconfig-paths-webpack-plugin";
+import tsConfig from "../tsconfig.json";
 
 const workspace = path.join(__dirname, "../");
 const outputDir = path.join(workspace, "dist/server");
 const sourceDir = path.join(workspace, "src/server");
 
-module.exports = {
-  mode: process.env.NODE_ENV ?? "development",
+const serverConfig: Configuration = {
+  mode: process.env.NODE_ENV === "production" ? "production" : "development",
   target: "node",
   devtool: "inline-source-map",
   entry: {
-    server: path.join(sourceDir, "index.ts")
+    server: path.join(sourceDir, "index.ts"),
   },
   output: {
     path: outputDir,
     filename: "index.js",
   },
   resolve: {
-    plugins: tsConfig.compilerOptions.baseUrl ? [new TSConfigPathsPlugin({
-      baseUrl: tsConfig.compilerOptions.baseUrl
-    })] : [],
+    plugins: [
+      new TSConfigPathsPlugin({
+        baseUrl: tsConfig.compilerOptions.baseUrl,
+      }),
+    ],
     extensions: [".ts", ".tsx", ".js"],
   },
   // don't compile node_modules
@@ -49,7 +52,7 @@ module.exports = {
       // images
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
-        type: "asset/resource"
+        type: "asset/resource",
       },
       // fonts and SVGs
       {
@@ -59,3 +62,5 @@ module.exports = {
     ],
   },
 };
+
+export default serverConfig;

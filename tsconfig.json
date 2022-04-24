@@ -26,6 +26,11 @@
     "jsx": "react-jsx",
     "typeRoots": ["src/typings"]
   },
-  "include": ["src", "src/typings", ".env"],
-  "exclude": ["node_modules"]
+  "include": ["src"],
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
 }

@@ -1,10 +1,11 @@
 // webpack development configuration
-const path = require("path");
-const baseConfig = require("./webpack.base");
+import { Configuration } from "webpack";
+import path from "path";
+import baseConfig from "./webpack.base";
 
 const workspace = path.join(__dirname, "../");
 
-module.exports = {
+const devConfig: Configuration = {
   ...baseConfig,
   devServer: {
     historyApiFallback: true,
@@ -13,4 +14,6 @@ module.exports = {
     compress: true,
     hot: true,
   },
-}
+};
+
+export default devConfig;
