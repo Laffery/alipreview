@@ -1,5 +1,4 @@
 import "./index.css";
-import { Story } from "hackernews";
 import { getShowStories } from "@/apis/index";
 import { firstValueFrom } from "rxjs";
 import Layout from "@/components/layout";

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { User } from "hackernews";
 import { apiUrl } from "config";
 import { fromFetch } from "rxjs/fetch";
 import { firstValueFrom, switchMap } from "rxjs";

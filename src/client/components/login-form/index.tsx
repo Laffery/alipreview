@@ -1,6 +1,5 @@
 import { useSetState } from "ahooks";
 import useEventHandler from "@/hooks/use-event-handler";
-import type { Account } from "hackernews";
 
 type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
 

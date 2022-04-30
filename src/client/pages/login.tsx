@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { login, register } from "@/apis/index";
-import type { Account } from "hackernews";
 import { relRootPath, Status } from "@/utils";
 import query from "query-string";
 import LoginForm from "@/components/login-form";

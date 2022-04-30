@@ -1,7 +1,6 @@
 import Header from "../header";
 import Footer from "../footer";
 import StoryItem from "../list-item";
-import type { Story } from "hackernews";
 import "./index.css";
 
 function Layout({

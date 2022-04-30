@@ -1,6 +1,5 @@
 import { forkJoin, Observable } from "rxjs";
 import { switchMap } from "rxjs/operators";
-import { Account, Story } from "hackernews";
 import { baseUrl, apiUrl } from "config";
 import { fromFetch } from "rxjs/fetch";
 

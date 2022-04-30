@@ -1,4 +1,3 @@
-import { Story } from "hackernews";
 import { ago, plural, host } from "@/utils";
 import "./index.css";
 

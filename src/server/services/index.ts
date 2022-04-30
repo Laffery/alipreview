@@ -1,4 +1,3 @@
-import { Account } from "hackernews";
 import { getCookie, Status } from "@/utils";
 import { account as mockAccount, cookie, baseUrl } from "config";
 import { Router } from "express";
