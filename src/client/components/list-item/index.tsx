@@ -8,6 +8,7 @@ interface ItemProps {
 }
 
 const StoryItem = ({ rank, data, hidable = true }: ItemProps) => {
+  const { descendants = 0, score = 0 } = data;
   const SiteTag = () => {
     if (!data.url) return null;
     return (
@@ -45,7 +46,7 @@ const StoryItem = ({ rank, data, hidable = true }: ItemProps) => {
         <td colSpan={2}></td>
         <td className="subtext">
           <span className="score">
-            {data.score} point{plural(data.score)}
+            {score} point{plural(score)}
           </span>
           <span>
             {" by "}
@@ -62,11 +63,11 @@ const StoryItem = ({ rank, data, hidable = true }: ItemProps) => {
               <a href="/">hide</a>
             </>
           )}
-          {data.descendants > 0 && (
+          {descendants > 0 && (
             <>
               {" | "}
               <a href="/">
-                {data.descendants}&nbsp;comment{plural(data.descendants)}
+                {descendants}&nbsp;comment{plural(descendants)}
               </a>
             </>
           )}

@@ -1,20 +1,67 @@
 // see https://hackernews.api-docs.io/
-interface Story {
+interface HackerNewsItemBase {
+  /** The item's unique id. */
   id: number;
-  by: string;
+  /** The type of item. One of "job", "story", "comment", "poll", or "pollopt". */
   type: "job" | "story" | "comment" | "poll" | "pollopt";
-  title: string;
-  text: string;
-  descendants: number; // in the case of stories or polls, the total comment count
-  score: number; // The story's score, or the votes if it is a pollopt
+  /** `true` if the item is deleted. */
+  deleted?: boolean;
+  /** The username of the item's author. */
+  by?: string;
+  /** Creation time of the item, in Unix Time. */
+  time?: number;
+  /** `true` if the item is dead. */
+  dead?: boolean;
+  /** The ids of the item's comments, in ranked display order. */
+  kids?: number[];
+}
+
+interface Story extends HackerNewsItemBase {
+  /** in the case of stories or polls, the total comment count */
+  descendants?: number;
+  /** The story's score */
+  score?: number;
+  /** The title of the story. */
+  title?: string;
   /**
-   * @note 一些来自本站点的帖子在响应体中没有url字段，如https://news.ycombinator.com/item?id=30668137
+   * The URL of the story
+   * @default http://stoplight.io/prism/
    */
-  url?: string; // The URL of the story
-  kids?: number[]; // The ids of the item's comments, in ranked display order
-  parts?: number[]; // A list of related pollopts, in display order
-  time?: number; // creation date of the item, in Unix Time
-  deleted?: boolean; // true if the item is deleted
+  url?: string;
+}
+
+interface Job extends HackerNewsItemBase {
+  /** The job text. HTML */
+  text?: string;
+  /** The URL of the story */
+  url?: string;
+  /** The title of the story, poll or job */
+  title?: string;
+}
+
+interface Poll extends HackerNewsItemBase {
+  /** in the case of stories or polls, the total comment count */
+  descendants?: number;
+  /** The story's score */
+  score?: number;
+  /** The title of the story, poll, or job. */
+  title?: string;
+  /** The poll text. HTML */
+  text?: string;
+}
+
+interface PollOpt extends HackerNewsItemBase {
+  /** The item's parent, the relevant poll. */
+  parent?: number;
+  /** The story's votes */
+  score?: number;
+}
+
+interface Comment extends HackerNewsItemBase {
+  /** The item's parent, either another comment or the relevant story. */
+  parent?: number;
+  /** The comment text. HTML. */
+  text?: string;
 }
 
 interface Account {

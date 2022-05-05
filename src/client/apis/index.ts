@@ -9,7 +9,7 @@ import { fromFetch } from "rxjs/fetch";
  * @returns news meta data
  */
 export function getStoryById(id: number): Observable<Story> {
-  return fromFetch(`${baseUrl}/v0/item/${id}.json`, {
+  return fromFetch(`${apiUrl}/item/${id}`, {
     selector: (res) => res.json() as Promise<Story>,
   });
 }
