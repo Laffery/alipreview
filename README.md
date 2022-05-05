@@ -41,6 +41,8 @@ If you wanna developing by yourself, run `yarn dev` to launch a HMR server and e
 
 基于本人的另一个项目[webpack-starter-kit](https://github.com/Laffery/webpack-starter-kit)，完全基于`Webpack5`和`React18`实现对`SSR`的支持。
 
+在服务端使用`RxJS`处理网络请求，一般需要引入node端的`fetch`，而最新的`nodejs@18`开始在原生支持`fetch API`，故采用（注意，v18将在2022年10月15日才成为LTS版本）。
+
 ### Authorization
 
 根据[Does the Hacker News API have auth documentation?](https://news.ycombinator.com/item?id=24127575)，并且原生的登录注册接口还需要`reRAPTCHA`人机身份验证，因此不太好实现调用Hacker News API进行注册和登录。\

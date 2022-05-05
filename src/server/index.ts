@@ -4,11 +4,7 @@ import path from "path";
 import urlParse from "url-parse";
 import Document from "./document";
 import services from "./services";
-import fetch from "node-fetch";
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-globalThis.fetch = fetch;
 const port = process.env.PORT ?? 3000;
 
 /** __dirname is dist/server */
