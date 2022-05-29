@@ -3,12 +3,15 @@ import { getJobsStories } from "@/apis/index";
 import { firstValueFrom } from "rxjs";
 import Layout from "@/components/layout";
 import useTitle from "@/hooks/use-title";
+import StoryList from "@/components/list";
 
 function JobsStories({ data = [] }: { data: Story[] }) {
   useTitle("jobs | Hacker News");
   return (
     <div className="App">
-      <Layout data={data} hidable={false} />
+      <Layout>
+        <StoryList data={data} hidable={false} />
+      </Layout>
     </div>
   );
 }

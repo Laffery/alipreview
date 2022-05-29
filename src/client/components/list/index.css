@@ -46,3 +46,11 @@
   height: 5px;
 }
 
+.more-space {
+  height: 10px;
+}
+
+.more {
+  cursor: pointer;
+  color: black;
+}

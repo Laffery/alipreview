@@ -2,11 +2,14 @@ import "./index.css";
 import { getTopStories } from "@/apis/index";
 import { firstValueFrom } from "rxjs";
 import Layout from "@/components/layout";
+import StoryList from "@/components/list";
 
 function TopStories({ data = [] }: { data: Story[] }) {
   return (
     <div className="App">
-      <Layout data={data} />
+      <Layout>
+        <StoryList data={data} />
+      </Layout>
     </div>
   );
 }

@@ -3,12 +3,15 @@ import { getShowStories } from "@/apis/index";
 import { firstValueFrom } from "rxjs";
 import Layout from "@/components/layout";
 import useTitle from "@/hooks/use-title";
+import StoryList from "@/components/list";
 
 function ShowStories({ data = [] }: { data: Story[] }) {
   useTitle("Show | Hacker News");
   return (
     <div className="App">
-      <Layout data={data} hidable={false} />
+      <Layout>
+        <StoryList data={data} hidable={false} />
+      </Layout>
     </div>
   );
 }

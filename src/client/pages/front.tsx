@@ -4,8 +4,7 @@ import Layout from "@/components/layout";
 function Front() {
   return (
     <div className="App">
-      <Layout data={[]} />
-      Hacker News API does not publicly provide this data!
+      <Layout>Hacker News API does not publicly provide this data!</Layout>
     </div>
   );
 }
