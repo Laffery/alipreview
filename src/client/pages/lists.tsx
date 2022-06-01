@@ -1,9 +1,9 @@
-import Header from "@/components/header";
-import Footer from "@/components/footer";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
+import Layout from "@/components/layout";
 import "./index.css";
+import useTitle from "@/hooks/use-title";
 
-type ListItem = { href: string; alt: string; description: ReactNode | string };
+type ListItem = { href: string; alt: string; description: ReactNode };
 
 const lists: ListItem[] = [
   {
@@ -11,7 +11,7 @@ const lists: ListItem[] = [
     href: "/front",
     description: (
       <>
-        Front page submissions for a given day (e.g.{" "}
+        Front page submissions for a given day (e.g.&nbsp;
         <a href="front?day=2016-06-20">2016-06-20</a>)
       </>
     ),
@@ -21,11 +21,11 @@ const lists: ListItem[] = [
     href: "/pool",
     description: (
       <>
-        Links selected for a{" "}
+        Links selected for a&nbsp;
         <a href="https://news.ycombinator.com/item?id=26998308">
           second chance
-        </a>{" "}
-        at the front page
+        </a>
+        &nbsp; at the front page
       </>
     ),
   },
@@ -92,43 +92,26 @@ const lists: ListItem[] = [
 ];
 
 function Lists() {
-  useEffect(() => {
-    // 更新浏览器标签页title
-    document.title = "Lists | Hacker News";
-  }, []);
+  useTitle("Lists | Hacker News");
 
   return (
     <div className="App">
-      <table id="root" className="full-width">
-        <tbody className="full-width">
-          <tr className="full-width">
-            <td style={{ backgroundColor: "#ff6600" }}>
-              <Header />
-            </td>
-          </tr>
-          <tr>
-            <td id="lists">
-              <table>
-                <tbody>
-                  {lists.map((item, index) => (
-                    <tr className="list-item" key={index}>
-                      <td>
-                        <a href={item.href}>{item.alt}</a>
-                      </td>
-                      <td>{item.description}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </td>
-          </tr>
-          <tr className="full-width" style={{ textAlign: "center" }}>
-            <td>
-              <Footer />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <Layout>
+        <section id="lists">
+          <table>
+            <tbody>
+              {lists.map((item, index) => (
+                <tr className="list-item" key={index}>
+                  <td>
+                    <a href={item.href}>{item.alt}</a>
+                  </td>
+                  <td>{item.description}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      </Layout>
     </div>
   );
 }

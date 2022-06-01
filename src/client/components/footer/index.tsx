@@ -12,11 +12,6 @@ export default function Footer() {
         </tbody>
       </table>
       <br />
-      <a href="https://www.ycombinator.com/apply">
-        Applications are open for YC Summer 2022
-      </a>
-      <br />
-      <br />
       <span className="yclinks">
         <a href="/newsguidelines">Guidelines</a>
         {" | "}

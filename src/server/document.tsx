@@ -51,7 +51,7 @@ class Document {
     return (
       <React.StrictMode>
         <Context.Provider value={this.ssrData}>
-          <App {...props} />;
+          <App {...props} />
         </Context.Provider>
       </React.StrictMode>
     );

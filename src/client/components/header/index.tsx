@@ -34,7 +34,7 @@ const primaryPath = (location: string): string => {
   return paths ? paths[1] : "";
 };
 
-export default function Header({
+function Header({
   title = "Hacker News",
   tabs = true,
   auth = true,
@@ -132,3 +132,30 @@ export default function Header({
     </div>
   );
 }
+
+const Message = ({ text }: { text: string }) => {
+  return (
+    <div>
+      <table className="header">
+        <tbody>
+          <tr>
+            <td id="td-1">
+              <a href="https://news.ycombinator.com">
+                <img src="https://news.ycombinator.com/y18.gif" alt="y18" />
+              </a>
+            </td>
+
+            <td id="td-2">
+              <span className="pagetop">
+                <b>{text}</b>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+Header.Message = Message;
+export default Header;

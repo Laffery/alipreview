@@ -9,7 +9,6 @@ function useAuth(): [User | undefined, () => Promise<string>] {
   const [user, setUser] = useState<User>();
   const { cookie } = useCookie();
   const logout = async () => {
-    console.log("hello");
     if (!user) return Status.Success;
     setUser(undefined);
     return firstValueFrom(

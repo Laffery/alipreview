@@ -14,7 +14,9 @@ interface BuildManifest {
   styles: Record<string, string>;
 }
 
-type GetServerSideProps<T extends Record<string, unknown>> = () => Promise<{
+type GetServerSideProps<
+  T extends Record<string, unknown> = Record<string, unknown>
+> = () => Promise<{
   props: T;
 }>;
 

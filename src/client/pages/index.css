@@ -19,3 +19,32 @@
 .login td .label {
   padding: 1px !important;
 }
+
+#lists {
+  padding: 10px 7px 0;
+}
+
+#lists > table td {
+  padding: 1px 8px 1px 1px;
+}
+
+.list-item a:visited {
+  color: #828282;
+}
+
+#submit {
+  padding: 10px 0px 0;
+}
+
+#submit > table td {
+  padding: 2px 1px 1px 2px;
+}
+
+#submit a {
+  color: #828282;
+  text-decoration: underline;
+}
+
+#submit a:visited {
+  color: #828282;
+}
