@@ -6,7 +6,7 @@ function useCookie() {
     typeof document === "undefined" ? context.cookie : document.cookie;
 
   function getCookie(name: string): string {
-    if (cookie.length === 0) return "";
+    if (!cookie) return "";
     let start = cookie.indexOf(`${name}=`);
     if (start !== -1) {
       start = start + name.length + 1;

@@ -42,9 +42,7 @@ class Server {
         return res.end("404 Not Found");
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const component: SSRComponent = require(`../client/pages${pathname}`);
-
       const scripts = [manifest.scripts.main, manifest.scripts[pathname]];
       const styles = [manifest.styles.main];
 
@@ -53,8 +51,7 @@ class Server {
         scripts,
         styles,
         element: component,
-        location: req.url,
-        cookie: req.headers.cookie,
+        req,
       });
 
       res.end(await document.renderToString());

@@ -32,3 +32,4 @@
   - `x.11` webpack配置文件改写为ts
   - `x.12` 重构layout wrapper
   - `x.13` submit提交页面
+  - `x.14` 递归获取一个story下的所有评论

@@ -3,7 +3,7 @@ import "./index.css";
 
 interface ItemProps {
   data: Story;
-  rank: number;
+  rank?: number;
   hidable?: boolean;
 }
 
@@ -26,7 +26,7 @@ const StoryItem = ({ rank, data, hidable = true }: ItemProps) => {
     <>
       <tr className="item-header">
         <td className="title vertical-align-top text-align-right">
-          <span>{rank}.</span>
+          {rank !== undefined && <span>{rank}.</span>}
         </td>
         <td>
           <a href="/">
@@ -55,7 +55,7 @@ const StoryItem = ({ rank, data, hidable = true }: ItemProps) => {
             </a>
           </span>{" "}
           <span className="age">
-            <a href="/">{ago(data.time)}</a>
+            <a href={`/item?id=${data.id}`}>{ago(data.time)}</a>
           </span>
           {hidable && (
             <>
@@ -66,7 +66,7 @@ const StoryItem = ({ rank, data, hidable = true }: ItemProps) => {
           {descendants > 0 && (
             <>
               {" | "}
-              <a href="/">
+              <a href={`/item?id=${data.id}`}>
                 {descendants}&nbsp;comment{plural(descendants)}
               </a>
             </>

@@ -1,5 +1,5 @@
 // see https://hackernews.api-docs.io/
-interface HackerNewsItemBase {
+interface HNItemBase {
   /** The item's unique id. */
   id: number;
   /** The type of item. One of "job", "story", "comment", "poll", or "pollopt". */
@@ -16,7 +16,7 @@ interface HackerNewsItemBase {
   kids?: number[];
 }
 
-interface Story extends HackerNewsItemBase {
+interface Story extends HNItemBase {
   /** in the case of stories or polls, the total comment count */
   descendants?: number;
   /** The story's score */
@@ -30,7 +30,7 @@ interface Story extends HackerNewsItemBase {
   url?: string;
 }
 
-interface Job extends HackerNewsItemBase {
+interface Job extends HNItemBase {
   /** The job text. HTML */
   text?: string;
   /** The URL of the story */
@@ -39,7 +39,7 @@ interface Job extends HackerNewsItemBase {
   title?: string;
 }
 
-interface Poll extends HackerNewsItemBase {
+interface Poll extends HNItemBase {
   /** in the case of stories or polls, the total comment count */
   descendants?: number;
   /** The story's score */
@@ -50,19 +50,23 @@ interface Poll extends HackerNewsItemBase {
   text?: string;
 }
 
-interface PollOpt extends HackerNewsItemBase {
+interface PollOpt extends HNItemBase {
   /** The item's parent, the relevant poll. */
   parent?: number;
   /** The story's votes */
   score?: number;
 }
 
-interface Comment extends HackerNewsItemBase {
+interface Comment extends HNItemBase {
   /** The item's parent, either another comment or the relevant story. */
   parent?: number;
   /** The comment text. HTML. */
   text?: string;
 }
+
+type HNItemMap<T extends Story | Job | Poll | PollOpt | Comment = Story> = {
+  [id: HNItemBase["id"]]: T;
+};
 
 interface Account {
   username: string;

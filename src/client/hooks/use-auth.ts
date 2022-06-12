@@ -14,18 +14,14 @@ function useAuth(): [User | undefined, () => Promise<string>] {
     return firstValueFrom(
       fromFetch(`${apiUrl}/user/logout`, {
         method: "delete",
-      }).pipe(
-        switchMap(async (res) => {
-          return await res.text();
-        })
-      )
+      }).pipe(switchMap((res) => res.text()))
     );
   };
 
   useEffect(() => {
     firstValueFrom(
       fromFetch(`${apiUrl}/user/info`, {
-        headers: { cookie },
+        headers: cookie ? { cookie } : {},
       })
     )
       .then((res) => res.json())

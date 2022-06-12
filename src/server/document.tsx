@@ -1,6 +1,9 @@
 import React from "react";
+import { Request } from "express";
+import qs from "query-string";
 import ReactDOMServer from "react-dom/server";
 import { Context, defaultContextValue } from "shared/context";
+import urlParse from "url-parse";
 
 const PUBLIC_URL = "/_static";
 
@@ -15,25 +18,22 @@ class Document {
   private title: string;
   private scripts: string[];
   private styles: string[];
-  private location: string;
   private element: SSRComponent;
-  private cookie: string;
+  private req: Request;
   private ssrData: SSRData = defaultContextValue;
 
   constructor({
     title = "React App",
     scripts = [],
     styles = [],
-    location = "/",
-    cookie = "",
+    req,
     element = { default: () => <div>Loading...</div> },
-  }: Partial<DocumentProps>) {
+  }: Partial<DocumentProps> & { req: Request }) {
     this.title = title;
     this.scripts = scripts;
     this.styles = styles;
     this.element = element;
-    this.location = location;
-    this.cookie = cookie;
+    this.req = req;
   }
 
   protected isSSR(): boolean {
@@ -45,8 +45,15 @@ class Document {
     const { default: App, getServerSideProps } = component;
 
     // Server side data fetching
-    const { props } = await getServerSideProps();
-    this.ssrData = { props, location: this.location, cookie: this.cookie };
+    const { props } = await getServerSideProps({
+      query: qs.parse(urlParse(this.req.url).query) as Record<string, string>,
+    });
+
+    this.ssrData = {
+      props,
+      location: this.req.url,
+      cookie: this.req.headers.cookie,
+    };
 
     return (
       <React.StrictMode>

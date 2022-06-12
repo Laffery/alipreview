@@ -54,7 +54,8 @@ function Header({
     if (!path) return [path, false];
     return [
       path,
-      findIndex(nav.concat({ href: "news", text: "" }), { href: path }) === -1,
+      findIndex(nav.concat({ href: "news", text: "" }), { href: path }) ===
+        -1 && !["item"].includes(path),
     ];
   }, [location]);
 
