@@ -2,7 +2,9 @@ import { getCommentsById } from "@/apis/index";
 import { firstValueFrom } from "rxjs";
 import Layout from "@/components/layout";
 import useTitle from "@/hooks/use-title";
+import { ago } from "@/utils";
 import StoryItem from "@/components/list/item";
+import { Interweave } from "interweave";
 import "./index.css";
 
 function StoryItemPage({
@@ -14,11 +16,71 @@ function StoryItemPage({
 }) {
   useTitle(`${data.title} | Hacker News`);
 
+  function CommentItem(props: { comment: Comment; indent?: number }) {
+    const { comment, indent = 0 } = props;
+    return (
+      <>
+        <tr key={comment.id}>
+          <td>
+            <table className="comment">
+              <tbody>
+                <tr>
+                  <td width={2 + 40 * indent}>
+                    <img
+                      src="https://news.ycombinator.com/s.gif"
+                      alt="indent"
+                      height={1}
+                      width={0}
+                    />
+                  </td>
+                  <td className="vote-links">
+                    <div className="vote-arrow" />
+                  </td>
+                  <td>
+                    <section>
+                      <header>
+                        {comment.by}&nbsp;
+                        {ago(comment.time)}
+                        {" | "}
+                        <span>
+                          next [
+                          <span
+                            className="toggle"
+                            onClick={() => {
+                              console.log("hello world");
+                            }}
+                          >
+                            -
+                          </span>
+                          ]
+                        </span>
+                      </header>
+                      <main className="comment-text">
+                        <Interweave content={comment.text} />
+                        <div className="reply">
+                          <span>reply</span>
+                        </div>
+                      </main>
+                    </section>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+
+        {(comment.kids ?? []).map((id) => (
+          <CommentItem key={id} comment={comments[id]} indent={indent + 1} />
+        ))}
+      </>
+    );
+  }
+
   return (
     <div className="App">
       <Layout>
         <table style={{ marginTop: 10 }} className="full-width">
-          <tbody>
+          <tbody className="story-item">
             <StoryItem data={data} hidable />
             <tr style={{ height: 10 }} />
             <tr>
@@ -40,13 +102,10 @@ function StoryItemPage({
         </table>
         <br />
         <br />
-        <table>
+        <table className="comment-tree">
           <tbody>
-            {Object.values(comments).map((comment) => (
-              <tr key={comment.id}>
-                <td>{comment.id}</td>
-                <td>{comment.text}</td>
-              </tr>
+            {(data.kids ?? []).map((id) => (
+              <CommentItem key={id} comment={comments[id]} />
             ))}
           </tbody>
         </table>

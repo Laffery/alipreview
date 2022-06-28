@@ -26,7 +26,7 @@ const StoryItem = ({ rank, data, hidable = true }: ItemProps) => {
     <>
       <tr className="item-header">
         <td className="title vertical-align-top text-align-right">
-          {rank !== undefined && <span>{rank}.</span>}
+          {rank !== undefined && <span>{`${rank}.`}</span>}
         </td>
         <td>
           <a href="/">
@@ -53,7 +53,8 @@ const StoryItem = ({ rank, data, hidable = true }: ItemProps) => {
             <a className="user" href="/">
               {data.by}
             </a>
-          </span>{" "}
+          </span>
+          &nbsp;
           <span className="age">
             <a href={`/item?id=${data.id}`}>{ago(data.time)}</a>
           </span>

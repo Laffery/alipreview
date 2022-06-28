@@ -10,14 +10,6 @@
   color: #828282;
 }
 
-.item-header .vote-arrow {
-  width: 10px;
-  height: 10px;
-  border: 0px;
-  margin: 3px 2px 6px;
-  background: url("https://news.ycombinator.com/grayarrow.gif") no-repeat;
-}
-
 .item-header .comhead {
   font-size: 8pt;
 }

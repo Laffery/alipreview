@@ -14,7 +14,6 @@ interface NavItem {
 }
 
 const nav: NavItem[] = [
-  { href: "newswelcome", text: "welcome", auth: true },
   { href: "newest", text: "new" },
   { href: "threads", text: "threads", auth: true },
   { href: "front", text: "past" },

@@ -48,3 +48,31 @@
 #submit a:visited {
   color: #828282;
 }
+
+.comment {
+  max-width: 1215px;
+  overflow-wrap: anywhere;
+  font-size: 9pt;
+}
+
+.comment .comment-text {
+  color: #000000;
+}
+
+.comment .toggle {
+  cursor: pointer;
+}
+
+.comment .toggle:hover {
+  text-decoration: underline;
+}
+
+.comment .reply span {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.vote-links {
+  vertical-align: top;
+  min-width: 18px;
+}
