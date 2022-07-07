@@ -5,6 +5,8 @@ import useTitle from "@/hooks/use-title";
 import { ago } from "@/utils";
 import StoryItem from "@/components/list/item";
 import { Interweave } from "interweave";
+import { useToggle } from "ahooks";
+import { useCallback } from "react";
 import "./index.css";
 
 function StoryItemPage({
@@ -15,9 +17,34 @@ function StoryItemPage({
   comments: HNItemMap<Comment>;
 }) {
   useTitle(`${data.title} | Hacker News`);
+  const kids = data.kids ?? [];
 
-  function CommentItem(props: { comment: Comment; indent?: number }) {
-    const { comment, indent = 0 } = props;
+  const getCommentChildrenCount = useCallback(
+    (id: Comment["id"]) => {
+      const getChildrenCount = (id: Comment["id"]) => {
+        const comment = comments[id];
+        const kids = comment.kids ?? [];
+        let sum = 1; // 1 for the comment itself
+        kids.forEach((kid) => void (sum += getChildrenCount(kid)));
+        return sum;
+      };
+      return getChildrenCount(id);
+    },
+    [comments]
+  );
+
+  function CommentItem(props: {
+    comment: Comment;
+    root?: number;
+    parent?: number;
+    indent?: number;
+    prev?: number;
+    next?: number;
+  }) {
+    const { comment, indent = 0, root, parent, prev, next } = props;
+    const kids = comment.kids ?? [];
+    const [collapsed, { toggle }] = useToggle(false);
+
     return (
       <>
         <tr key={comment.id}>
@@ -34,33 +61,59 @@ function StoryItemPage({
                     />
                   </td>
                   <td className="vote-links">
-                    <div className="vote-arrow" />
+                    {!collapsed && <div className="vote-arrow" />}
                   </td>
-                  <td>
+                  <td className="default">
                     <section>
                       <header>
-                        {comment.by}&nbsp;
-                        {ago(comment.time)}
+                        <a href={`/user?id=${comment.by}`}>{comment.by}</a>
+                        &nbsp;
+                        <a href={`/item?id=${comment.id}`}>
+                          {ago(comment.time)}
+                        </a>
                         {" | "}
+                        {indent > 1 && (
+                          <>
+                            <a href={`/item?id=${data.id}#${root}`}>root</a>
+                            {" | "}
+                          </>
+                        )}
+                        {parent !== undefined && (
+                          <>
+                            <a href={`/item?id=${data.id}#${parent}`}>parent</a>
+                            {" | "}
+                          </>
+                        )}
+                        {prev !== undefined && (
+                          <>
+                            <a href={`/item?id=${data.id}#${prev}`}>prev</a>
+                            {" | "}
+                          </>
+                        )}
+                        {next !== undefined && (
+                          <>
+                            <a href={`/item?id=${data.id}#${next}`}>next</a>
+                            {" | "}
+                          </>
+                        )}
                         <span>
-                          next [
-                          <span
-                            className="toggle"
-                            onClick={() => {
-                              console.log("hello world");
-                            }}
-                          >
-                            -
-                          </span>
+                          [
+                          <a onClick={toggle} href="javascript:void(0)">
+                            {collapsed
+                              ? `${getCommentChildrenCount(comment.id)} more`
+                              : "-"}
+                          </a>
                           ]
                         </span>
                       </header>
-                      <main className="comment-text">
-                        <Interweave content={comment.text} />
-                        <div className="reply">
-                          <span>reply</span>
-                        </div>
-                      </main>
+                      {!collapsed && (
+                        <main className="comment-text">
+                          <Interweave content={comment.text} />
+                          <div className="reply">
+                            <span>reply</span>
+                          </div>
+                        </main>
+                      )}
                     </section>
                   </td>
                 </tr>
@@ -69,9 +122,22 @@ function StoryItemPage({
           </td>
         </tr>
 
-        {(comment.kids ?? []).map((id) => (
-          <CommentItem key={id} comment={comments[id]} indent={indent + 1} />
-        ))}
+        {!collapsed &&
+          kids.map((id, index) => (
+            <CommentItem
+              key={id}
+              comment={comments[id]}
+              indent={indent + 1}
+              root={root}
+              parent={comment.id}
+              next={
+                index + 1 < kids.length - 1
+                  ? comments[kids[index + 1]].id
+                  : undefined
+              }
+              prev={index - 1 >= 0 ? comments[kids[index - 1]].id : undefined}
+            />
+          ))}
       </>
     );
   }
@@ -104,8 +170,18 @@ function StoryItemPage({
         <br />
         <table className="comment-tree">
           <tbody>
-            {(data.kids ?? []).map((id) => (
-              <CommentItem key={id} comment={comments[id]} />
+            {kids.map((id, index) => (
+              <CommentItem
+                key={id}
+                comment={comments[id]}
+                root={id}
+                next={
+                  index + 1 < kids.length - 1
+                    ? comments[kids[index + 1]].id
+                    : undefined
+                }
+                prev={index - 1 >= 0 ? comments[kids[index - 1]].id : undefined}
+              />
             ))}
           </tbody>
         </table>

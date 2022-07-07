@@ -55,21 +55,26 @@
   font-size: 9pt;
 }
 
+.comment a {
+  color: #828282;
+}
+
+.comment a:hover {
+  text-decoration: underline;
+}
+
+.comment a:visited {
+  color: #828282;
+}
+
 .comment .comment-text {
   color: #000000;
-}
-
-.comment .toggle {
-  cursor: pointer;
-}
-
-.comment .toggle:hover {
-  text-decoration: underline;
 }
 
 .comment .reply span {
   text-decoration: underline;
   cursor: pointer;
+  margin: 8px 0 0;
 }
 
 .vote-links {
