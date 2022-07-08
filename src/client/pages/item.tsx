@@ -33,6 +33,20 @@ function StoryItemPage({
     [comments]
   );
 
+  const scrollToComment = useCallback(
+    (id: Comment["id"]) => () => {
+      const scrollElement = document.getElementById("comment-scroll");
+      const anchorElement = document.getElementById(`${id}`);
+      if (scrollElement && anchorElement) {
+        scrollElement.scrollTo({
+          left: anchorElement.offsetLeft,
+          behavior: "smooth",
+        });
+      }
+    },
+    []
+  );
+
   function CommentItem(props: {
     comment: Comment;
     root?: number;
@@ -47,7 +61,7 @@ function StoryItemPage({
 
     return (
       <>
-        <tr key={comment.id}>
+        <tr key={comment.id} id={`${comment.id}`}>
           <td>
             <table className="comment">
               <tbody>
@@ -72,27 +86,47 @@ function StoryItemPage({
                           {ago(comment.time)}
                         </a>
                         {" | "}
-                        {indent > 1 && (
+                        {indent > 1 && root !== undefined && (
                           <>
-                            <a href={`/item?id=${data.id}#${root}`}>root</a>
+                            <a
+                              onClick={scrollToComment(root)}
+                              href={`/item?id=${data.id}#${root}`}
+                            >
+                              root
+                            </a>
                             {" | "}
                           </>
                         )}
                         {parent !== undefined && (
                           <>
-                            <a href={`/item?id=${data.id}#${parent}`}>parent</a>
+                            <a
+                              onClick={scrollToComment(parent)}
+                              href={`/item?id=${data.id}#${parent}`}
+                            >
+                              parent
+                            </a>
                             {" | "}
                           </>
                         )}
                         {prev !== undefined && (
                           <>
-                            <a href={`/item?id=${data.id}#${prev}`}>prev</a>
+                            <a
+                              onClick={scrollToComment(prev)}
+                              href={`/item?id=${data.id}#${prev}`}
+                            >
+                              prev
+                            </a>
                             {" | "}
                           </>
                         )}
                         {next !== undefined && (
                           <>
-                            <a href={`/item?id=${data.id}#${next}`}>next</a>
+                            <a
+                              onClick={scrollToComment(next)}
+                              href={`/item?id=${data.id}#${next}`}
+                            >
+                              next
+                            </a>
                             {" | "}
                           </>
                         )}
@@ -168,7 +202,7 @@ function StoryItemPage({
         </table>
         <br />
         <br />
-        <table className="comment-tree">
+        <table className="comment-tree" id="comment-scroll">
           <tbody>
             {kids.map((id, index) => (
               <CommentItem
