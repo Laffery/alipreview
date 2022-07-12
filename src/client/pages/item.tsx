@@ -9,14 +9,28 @@ import { useToggle } from "ahooks";
 import { useCallback } from "react";
 import "./index.css";
 
-function StoryItemPage({
+function CommentEditor() {
+  return (
+    <form>
+      <textarea rows={8} cols={80} />
+      <br />
+      <br />
+      <input
+        type="submit"
+        style={{ fontFamily: "monospace" }}
+        value="add comment"
+      />
+    </form>
+  );
+}
+
+function CommentTree({
   data,
   comments,
 }: {
-  data: Story;
+  data: HNItemBase;
   comments: HNItemMap<Comment>;
 }) {
-  useTitle(`${data.title} | Hacker News`);
   const kids = data.kids ?? [];
 
   const getCommentChildrenCount = useCallback(
@@ -46,6 +60,23 @@ function StoryItemPage({
     },
     []
   );
+
+  // link in comment item's header
+  const Link = (props: {
+    href: string;
+    text?: string;
+    onClick?: () => void;
+  }) => {
+    const { href, text, onClick } = props;
+    return (
+      <>
+        <a onClick={onClick} href={href}>
+          {text}
+        </a>
+        {" | "}
+      </>
+    );
+  };
 
   function CommentItem(props: {
     comment: Comment;
@@ -82,53 +113,37 @@ function StoryItemPage({
                       <header>
                         <a href={`/user?id=${comment.by}`}>{comment.by}</a>
                         &nbsp;
-                        <a href={`/item?id=${comment.id}`}>
-                          {ago(comment.time)}
-                        </a>
-                        {" | "}
+                        <Link
+                          href={`/item?id=${comment.id}`}
+                          text={ago(comment.time)}
+                        />
                         {indent > 1 && root !== undefined && (
-                          <>
-                            <a
-                              onClick={scrollToComment(root)}
-                              href={`/item?id=${data.id}#${root}`}
-                            >
-                              root
-                            </a>
-                            {" | "}
-                          </>
+                          <Link
+                            onClick={scrollToComment(root)}
+                            href={`/item?id=${data.id}#${root}`}
+                            text="root"
+                          />
                         )}
                         {parent !== undefined && (
-                          <>
-                            <a
-                              onClick={scrollToComment(parent)}
-                              href={`/item?id=${data.id}#${parent}`}
-                            >
-                              parent
-                            </a>
-                            {" | "}
-                          </>
+                          <Link
+                            onClick={scrollToComment(parent)}
+                            href={`/item?id=${data.id}#${parent}`}
+                            text="parent"
+                          />
                         )}
                         {prev !== undefined && (
-                          <>
-                            <a
-                              onClick={scrollToComment(prev)}
-                              href={`/item?id=${data.id}#${prev}`}
-                            >
-                              prev
-                            </a>
-                            {" | "}
-                          </>
+                          <Link
+                            onClick={scrollToComment(prev)}
+                            href={`/item?id=${data.id}#${prev}`}
+                            text="prev"
+                          />
                         )}
                         {next !== undefined && (
-                          <>
-                            <a
-                              onClick={scrollToComment(next)}
-                              href={`/item?id=${data.id}#${next}`}
-                            >
-                              next
-                            </a>
-                            {" | "}
-                          </>
+                          <Link
+                            onClick={scrollToComment(next)}
+                            href={`/item?id=${data.id}#${next}`}
+                            text="next"
+                          />
                         )}
                         <span>
                           [
@@ -144,7 +159,15 @@ function StoryItemPage({
                         <main className="comment-text">
                           <Interweave content={comment.text} />
                           <div className="reply">
-                            <span>reply</span>
+                            <a
+                              href={`/reply?id=${
+                                comment.id
+                              }&goto=${encodeURIComponent(
+                                `/item${data.id}#${comment.id}`
+                              )}`}
+                            >
+                              reply
+                            </a>
                           </div>
                         </main>
                       )}
@@ -177,6 +200,36 @@ function StoryItemPage({
   }
 
   return (
+    <table className="comment-tree" id="comment-scroll">
+      <tbody>
+        {kids.map((id, index) => (
+          <CommentItem
+            key={id}
+            comment={comments[id]}
+            root={id}
+            next={
+              index + 1 < kids.length - 1
+                ? comments[kids[index + 1]].id
+                : undefined
+            }
+            prev={index - 1 >= 0 ? comments[kids[index - 1]].id : undefined}
+          />
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+function StoryItemPage({
+  data,
+  comments,
+}: {
+  data: Story;
+  comments: HNItemMap<Comment>;
+}) {
+  useTitle(`${data.title} | Hacker News`);
+
+  return (
     <div className="App">
       <Layout>
         <table style={{ marginTop: 10 }} className="full-width">
@@ -186,39 +239,16 @@ function StoryItemPage({
             <tr>
               <td colSpan={2} />
               <td>
-                <form>
-                  <textarea rows={8} cols={80} />
-                  <br />
-                  <br />
-                  <input
-                    type="submit"
-                    style={{ fontFamily: "monospace" }}
-                    value="add comment"
-                  />
-                </form>
+                <CommentEditor />
               </td>
             </tr>
           </tbody>
         </table>
         <br />
         <br />
-        <table className="comment-tree" id="comment-scroll">
-          <tbody>
-            {kids.map((id, index) => (
-              <CommentItem
-                key={id}
-                comment={comments[id]}
-                root={id}
-                next={
-                  index + 1 < kids.length - 1
-                    ? comments[kids[index + 1]].id
-                    : undefined
-                }
-                prev={index - 1 >= 0 ? comments[kids[index - 1]].id : undefined}
-              />
-            ))}
-          </tbody>
-        </table>
+        <CommentTree data={data} comments={comments} />
+        <br />
+        <br />
       </Layout>
     </div>
   );
@@ -226,6 +256,7 @@ function StoryItemPage({
 
 function CommentItemPage({
   data,
+  comments,
 }: {
   data: Comment;
   comments: HNItemMap<Comment>;
@@ -242,31 +273,16 @@ function CommentItemPage({
             <tr>
               <td colSpan={2} />
               <td>
-                <form>
-                  <textarea rows={8} cols={80} />
-                  <br />
-                  <br />
-                  <input
-                    type="submit"
-                    style={{ fontFamily: "monospace" }}
-                    value="add comment"
-                  />
-                </form>
+                <CommentEditor />
               </td>
             </tr>
           </tbody>
         </table>
         <br />
         <br />
-        <table>
-          <tbody>
-            {(data.kids ?? []).map((id) => (
-              <tr key={id} id={`${id}`}>
-                {id}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <CommentTree data={data} comments={comments} />
+        <br />
+        <br />
       </Layout>
     </div>
   );
