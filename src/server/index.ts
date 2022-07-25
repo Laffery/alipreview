@@ -4,7 +4,11 @@ import path from "path";
 import urlParse from "url-parse";
 import Document from "./document";
 import services from "./services";
+import fetch from "node-fetch";
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+globalThis.fetch = fetch;
 /** __dirname is dist/server */
 const PUBLIC_URL = path.resolve(__dirname, "../static");
 
