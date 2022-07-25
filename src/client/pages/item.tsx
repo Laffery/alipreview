@@ -1,7 +1,7 @@
 import { getCommentsById } from "@/apis/index";
 import { firstValueFrom } from "rxjs";
 import Layout from "@/components/layout";
-import useTitle from "@/hooks/use-title";
+import { useEffectOnce, useTitle } from "@/hooks";
 import { ago } from "@/utils";
 import StoryItem from "@/components/list/item";
 import { Interweave } from "interweave";
@@ -47,32 +47,31 @@ function CommentTree({
     [comments]
   );
 
-  const scrollToComment = useCallback(
-    (id: Comment["id"]) => () => {
-      const scrollElement = document.getElementById("comment-scroll");
-      const anchorElement = document.getElementById(`${id}`);
-      if (scrollElement && anchorElement) {
-        scrollElement.scrollTo({
-          left: anchorElement.offsetLeft,
-          behavior: "smooth",
-        });
+  useEffectOnce(() => {
+    const onHashChanged = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const id = parseInt(hash.slice(1), 10);
+        const comment = comments[id];
+        if (comment) {
+          const el = document.getElementById(`${id}`);
+          if (el) el.scrollIntoView();
+        }
       }
-    },
-    []
-  );
+    };
+
+    window.addEventListener("hashchange", onHashChanged);
+    return () => {
+      window.removeEventListener("hashchange", onHashChanged);
+    };
+  });
 
   // link in comment item's header
-  const Link = (props: {
-    href: string;
-    text?: string;
-    onClick?: () => void;
-  }) => {
-    const { href, text, onClick } = props;
+  const Link = (props: { href: string; text?: string }) => {
+    const { href, text } = props;
     return (
       <>
-        <a onClick={onClick} href={href}>
-          {text}
-        </a>
+        <a href={href}>{text}</a>
         {" | "}
       </>
     );
@@ -89,6 +88,9 @@ function CommentTree({
     const { comment, indent = 0, root, parent, prev, next } = props;
     const kids = comment.kids ?? [];
     const [collapsed, { toggle }] = useToggle(false);
+    const replyHref = `/reply?id=${comment.id}&goto=${encodeURIComponent(
+      `/item${data.id}#${comment.id}`
+    )}`;
 
     return (
       <>
@@ -119,28 +121,24 @@ function CommentTree({
                         />
                         {indent > 1 && root !== undefined && (
                           <Link
-                            onClick={scrollToComment(root)}
                             href={`/item?id=${data.id}#${root}`}
                             text="root"
                           />
                         )}
                         {parent !== undefined && (
                           <Link
-                            onClick={scrollToComment(parent)}
                             href={`/item?id=${data.id}#${parent}`}
                             text="parent"
                           />
                         )}
                         {prev !== undefined && (
                           <Link
-                            onClick={scrollToComment(prev)}
                             href={`/item?id=${data.id}#${prev}`}
                             text="prev"
                           />
                         )}
                         {next !== undefined && (
                           <Link
-                            onClick={scrollToComment(next)}
                             href={`/item?id=${data.id}#${next}`}
                             text="next"
                           />
@@ -159,15 +157,7 @@ function CommentTree({
                         <main className="comment-text">
                           <Interweave content={comment.text} />
                           <div className="reply">
-                            <a
-                              href={`/reply?id=${
-                                comment.id
-                              }&goto=${encodeURIComponent(
-                                `/item${data.id}#${comment.id}`
-                              )}`}
-                            >
-                              reply
-                            </a>
+                            <a href={replyHref}>reply</a>
                           </div>
                         </main>
                       )}

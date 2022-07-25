@@ -1,5 +1,5 @@
 import Layout from "@/components/layout";
-import useAuth from "@/hooks/use-auth";
+import { useAuth } from "@/hooks";
 import Login from "./login";
 import "./index.css";
 

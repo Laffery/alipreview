@@ -2,7 +2,7 @@ import "./index.css";
 import { getShowStories } from "@/apis/index";
 import { firstValueFrom } from "rxjs";
 import Layout from "@/components/layout";
-import useTitle from "@/hooks/use-title";
+import { useTitle } from "@/hooks";
 import StoryList from "@/components/list";
 
 function ShowStories({ data = [] }: { data: Story[] }) {

@@ -1,5 +1,4 @@
-import useAuth from "@/hooks/use-auth";
-import useLocation from "@/hooks/use-location";
+import { useAuth, useLocation } from "@/hooks";
 import { findIndex } from "lodash";
 import { useMemo } from "react";
 import { classNames } from "@/utils";

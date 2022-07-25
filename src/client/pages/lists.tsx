@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import Layout from "@/components/layout";
+import { useTitle } from "@/hooks";
 import "./index.css";
-import useTitle from "@/hooks/use-title";
 
 type ListItem = { href: string; alt: string; description: ReactNode };
 

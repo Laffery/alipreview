@@ -1,6 +1,6 @@
 import { Context, useContext } from "shared/context";
 
-function useCookie() {
+export function useCookie() {
   const context = useContext(Context);
   const cookie =
     typeof document === "undefined" ? context.cookie : document.cookie;
@@ -19,5 +19,3 @@ function useCookie() {
 
   return { cookie, get: getCookie };
 }
-
-export default useCookie;

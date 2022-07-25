@@ -1,4 +1,4 @@
-import useTitle from "@/hooks/use-title";
+import { useTitle } from "@/hooks";
 import type { ReactNode } from "react";
 import "./index.css";
 

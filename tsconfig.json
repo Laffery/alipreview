@@ -8,7 +8,7 @@
     "paths": {
       "@/components/*": ["client/components/*"],
       "@/apis/*": ["client/apis/*"],
-      "@/hooks/*": ["client/hooks/*"],
+      "@/hooks": ["client/hooks"],
       "@/context": ["shared/context/index"],
       "@/utils": ["shared/utils/index"]
     },

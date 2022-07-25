@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
  * @param initState
  * @returns value
  */
-function useObservable<T>(input$: Observable<T>, initState?: T) {
+export function useObservable<T>(input$: Observable<T>, initState?: T) {
   const [value, setValue] = useState(initState);
   useEffect(() => {
     const subscription = input$.subscribe({
@@ -19,5 +19,3 @@ function useObservable<T>(input$: Observable<T>, initState?: T) {
 
   return value;
 }
-
-export default useObservable;

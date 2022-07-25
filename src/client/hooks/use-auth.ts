@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { apiUrl } from "config";
 import { fromFetch } from "rxjs/fetch";
 import { firstValueFrom, switchMap } from "rxjs";
-import useCookie from "./use-cookie";
+import { useCookie } from "./use-cookie";
 import { Status } from "@/utils";
 
-function useAuth(): [User | undefined, () => Promise<string>] {
+export function useAuth(): [User | undefined, () => Promise<string>] {
   const [user, setUser] = useState<User>();
   const { cookie } = useCookie();
   const logout = async () => {
@@ -32,5 +32,3 @@ function useAuth(): [User | undefined, () => Promise<string>] {
 
   return [user, logout];
 }
-
-export default useAuth;
